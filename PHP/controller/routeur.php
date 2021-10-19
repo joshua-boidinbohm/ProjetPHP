@@ -8,7 +8,7 @@ else {
     $action = 'readAll';
 }
 if (!in_array($action, $fct)){
-    ControllerVoiture::error();
+    ControllerProduit::error();
 }
 else {
     if (isset($_GET['action'])) {
