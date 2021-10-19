@@ -10,7 +10,7 @@ class ControllerProduit{
     }
 
     public static function read($mod){
-        if (ModelVoiture::getProduitByModele($mod)==null){
+        if (ModelProduit::getProduitByModele($mod)==null){
             $controller='produit';
             $view='error';
             $pagetitle='Erreur';
@@ -20,7 +20,7 @@ class ControllerProduit{
             $controller='produit';
             $view='detail';
             $pagetitle='Details du produit';
-            $v = ModelVoiture::getProduitByModele($mod);
+            $v = ModelProduit::getProduitByModele($mod);
             require File::build_path(array("view/produit","view.php"));
         }
     }
