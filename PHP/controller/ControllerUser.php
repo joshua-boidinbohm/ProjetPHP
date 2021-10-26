@@ -2,7 +2,7 @@
 
 require_once File::build_path(array("model","ModelUser.php"));
 class ControllerUser{
-    public static function read($id){
+    public static function readUser($id){
         if (ModelProduit::getProduitByModele($id)==null){
             $controller='user';
             $view='error';
@@ -12,7 +12,7 @@ class ControllerUser{
         else{
             $controller='user';
             $view='detail';
-            $pagetitle='Details du produit';
+            $pagetitle='Informations utilisateur';
             $v = ModelProduit::getProduitByModele($id);
             require File::build_path(array("view","view.php"));
         }

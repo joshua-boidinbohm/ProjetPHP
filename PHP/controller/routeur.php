@@ -1,6 +1,8 @@
 <?php
 require_once File::build_path(array("controller","ControllerProduit.php"));
+require_once File::build_path(array("controller","ControllerUser.php"));
 $fct = get_class_methods('ControllerProduit');
+$fct = get_class_methods('ControllerUser');
 if (isset($_GET['action'])){
     $action = $_GET['action'];
 }
