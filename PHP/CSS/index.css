@@ -1,0 +1,13 @@
+body{
+    background-color: teal;
+    color: white;
+    align-content: center;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+p{
+    margin-top: 80px;
+    margin-left: 5%;
+    margin-right: 5%;
+}
