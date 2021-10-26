@@ -3,7 +3,7 @@
         <head>
             <title>Bienvenue !</title>
             <meta charset="utf-8">
-            <link rel="stylesheet" href="CSS/index.css">
+            <link rel="stylesheet" href="src/CSS/index.css">
         </head>
 
         <body >
