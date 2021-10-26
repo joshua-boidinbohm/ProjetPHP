@@ -12,14 +12,18 @@
         <a href="index.php?action=readAll&controller=trajet">Trajets</a>
     </nav>
 </header>
-<body>
-<?php
-// Si $controleur='produit' et $view='list',
-// alors $filepath="/chemin_du_site/view/produit/list.php"
-$filepath = File::build_path(array("view", $controller, "$view.php"));
-require $filepath;
-?>
-</body>
+<main>
+    <body>
+
+        <?php
+            // Si $controleur='produit' et $view='list',
+            // alors $filepath="/chemin_du_site/view/produit/list.php"
+            $filepath = File::build_path(array("view", $controller, "$view.php"));
+            require $filepath;
+        ?>
+    </body>
+</main>
+
 <footer id="footer">
     <link rel="stylesheet" href="src/CSS/style_footer.css">
 
