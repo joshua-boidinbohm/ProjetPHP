@@ -102,7 +102,7 @@ Class ModelUser {
 
     public static function newsletter($email){
         try{
-            $sql = "INSERT INTO Solar__NewsLetter (emailNewsLetter) VALUES (:mail)";
+            $sql = "INSERT INTO Solar__NewsLetter(emailNewsLetter) VALUES (:mail)";
             $req_prep = Model::getPDO()->prepare($sql);
             $values = array(
                 "mail" => $email,
