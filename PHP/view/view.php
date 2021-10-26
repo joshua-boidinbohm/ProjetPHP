@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <link href="src/design.css" rel="stylesheet">
+    <link href="src/CSS/design.css" rel="stylesheet">
     <title><?php echo $pagetitle; ?></title>
 </head>
 <header>
@@ -26,14 +26,18 @@
     </nav>
     -->
 </header>
-<body>
-<?php
-// Si $controleur='produit' et $view='list',
-// alors $filepath="/chemin_du_site/view/produit/list.php"
-$filepath = File::build_path(array("view", $controller, "$view.php"));
-require $filepath;
-?>
-</body>
+<main>
+    <body>
+
+        <?php
+            // Si $controleur='produit' et $view='list',
+            // alors $filepath="/chemin_du_site/view/produit/list.php"
+            $filepath = File::build_path(array("view", $controller, "$view.php"));
+            require $filepath;
+        ?>
+    </body>
+</main>
+
 <footer id="footer">
     <link rel="stylesheet" href="src/CSS/style_footer.css">
 
