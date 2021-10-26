@@ -8,7 +8,7 @@
 <header>
     <link href="src/CSS/style_header.css" rel="stylesheet">
         <div class="small" id="header-scroll">
-            <h1><a href="#">SolarBangala</a></h1>
+            <h1 id="titreSite"><a href="#">SolarBangala</a></h1>
             <nav>
                 <ul>
                     <li><a href="?action=readAll">Produits</a></li>

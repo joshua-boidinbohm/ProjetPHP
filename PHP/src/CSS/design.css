@@ -10,10 +10,12 @@ p{
     text-align: center;
 }
 
-div{
+.img{
     margin-top: 2%;
     align-items: center;
     text-align: center;
+    margin-bottom: 2%;
+
 }
 #article{
     margin-top: 15px;
