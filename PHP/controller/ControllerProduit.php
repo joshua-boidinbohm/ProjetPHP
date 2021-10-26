@@ -6,7 +6,7 @@ class ControllerProduit{
         $view='list';
         $pagetitle='Liste des produits';
         $tab_v = ModelProduit::getAllProduits();     //appel au modèle pour gerer la BD
-        require File::build_path(array("view/produit","view.php"));  //"redirige" vers la vue
+        require File::build_path(array("view","view.php"));  //"redirige" vers la vue
     }
 
     public static function read($mod){
@@ -14,14 +14,14 @@ class ControllerProduit{
             $controller='produit';
             $view='error';
             $pagetitle='Erreur';
-            require File::build_path(array("view/produit","view.php"));
+            require File::build_path(array("view","view.php"));
         }
         else{
             $controller='produit';
             $view='detail';
             $pagetitle='Details du produit';
             $v = ModelProduit::getProduitByModele($mod);
-            require File::build_path(array("view/produit","view.php"));
+            require File::build_path(array("view","view.php"));
         }
     }
 }
