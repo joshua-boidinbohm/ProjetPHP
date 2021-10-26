@@ -7,14 +7,14 @@ class ControllerUser{
             $controller='user';
             $view='error';
             $pagetitle='Erreur';
-            require File::build_path(array("view/utilisateur","view.php"));
+            require File::build_path(array("view","view.php"));
         }
         else{
             $controller='user';
             $view='detail';
             $pagetitle='Details du produit';
             $v = ModelProduit::getProduitByModele($id);
-            require File::build_path(array("view/utilisateur","view.php"));
+            require File::build_path(array("view","view.php"));
         }
     }
 }
