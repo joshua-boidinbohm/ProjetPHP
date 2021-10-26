@@ -6,20 +6,38 @@
     <title><?php echo $pagetitle; ?></title>
 </head>
 <header>
+    <link href="src/CSS/style_header.css" rel="stylesheet">
+        <div class="small" id="header-scroll">
+            <h1 id="titreSite"><a href="#">SolarBangala</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="?action=readAll">Produits</a></li>
+                    <li><a href="?action=readAll&controller=utilisateur">Utilisateurs</a></li>
+                    <li><a href="index.php?action=readAll&controller=trajet">Trajets</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+<!--
     <nav style="border: 1px solid black;text-align:center;padding-right:1em;">
         <a href="?action=readAll">Produits</a>
         <a href="?action=readAll&controller=utilisateur">Utilisateurs</a>
         <a href="index.php?action=readAll&controller=trajet">Trajets</a>
     </nav>
+    -->
 </header>
-<body>
-<?php
-// Si $controleur='produit' et $view='list',
-// alors $filepath="/chemin_du_site/view/produit/list.php"
-$filepath = File::build_path(array("view", $controller, "$view.php"));
-require $filepath;
-?>
-</body>
+<main>
+    <body>
+
+        <?php
+            // Si $controleur='produit' et $view='list',
+            // alors $filepath="/chemin_du_site/view/produit/list.php"
+            $filepath = File::build_path(array("view", $controller, "$view.php"));
+            require $filepath;
+        ?>
+    </body>
+</main>
+
 <footer id="footer">
     <link rel="stylesheet" href="src/CSS/style_footer.css">
 

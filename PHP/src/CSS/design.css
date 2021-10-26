@@ -1,9 +1,8 @@
-body{
+main{
     background-color: teal;
     color: white;
     align-content: center;
-    margin-left: 15%;
-    margin-right: 15%;
+    padding-top: 100px;
 }
 
 p{
@@ -11,10 +10,12 @@ p{
     text-align: center;
 }
 
-div{
+.img{
     margin-top: 2%;
     align-items: center;
     text-align: center;
+    margin-bottom: 2%;
+
 }
 #article{
     margin-top: 15px;
