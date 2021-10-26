@@ -76,7 +76,7 @@ Class ModelUser {
 
     public static function getUser($id) {
         try{
-            $sql = "SELECT * from Solar__Utilisateurs WHERE modelProduit=:nom_tag";
+            $sql = "SELECT * from Solar__Utilisateurs WHERE idUtilisateur=:nom_tag";
             // Préparation de la requête
             $req_prep = Model::getPDO()->prepare($sql);
 
@@ -87,9 +87,9 @@ Class ModelUser {
 
             $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelUser');
             $tab_prod = $req_prep->fetchAll();
-            if (empty($tab_prod))
+            if (empty($tab_user))
                 return false;
-            return $tab_prod[0];
+            return $tab_user[0];
         } catch (PDOException $e) {
             if (Conf::getDebug()) {
                 echo $e->getMessage(); // affiche un message d'erreur
