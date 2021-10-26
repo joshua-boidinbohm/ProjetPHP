@@ -3,17 +3,17 @@
 require_once File::build_path(array("model","ModelUser.php"));
 class ControllerUser{
     public static function readUser($id){
-        if (ModelProduit::getProduitByModele($id)==null){
-            $controller='user';
+        if (ModelUser::getUser($id)==null){
+            $controller='utilisateur';
             $view='error';
             $pagetitle='Erreur';
             require File::build_path(array("view","view.php"));
         }
         else{
-            $controller='user';
+            $controller='utilisateur';
             $view='detail';
             $pagetitle='Informations utilisateur';
-            $v = ModelProduit::getProduitByModele($id);
+            $v = ModelUser::getUser($id);
             require File::build_path(array("view","view.php"));
         }
     }
