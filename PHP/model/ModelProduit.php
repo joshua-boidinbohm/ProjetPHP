@@ -52,7 +52,7 @@ class ModelProduit{
             if (Conf::getDebug()) {
                 echo $e->getMessage(); // affiche un message d'erreur
             } else {
-                echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+                echo 'Une erreur est survenue <a href=""> Retour a la page d\'accueil </a>';
             }
             die();
         }

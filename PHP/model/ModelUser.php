@@ -1,38 +1,103 @@
 <?php
 
-namespace model;
-
+require_once File::build_path(array("model","Model.php"));
 Class ModelUser {
-    private $login;
-    private $nom;
-    private $prenom;
+    private $idUtilisateur;
+    private $nomUtilisateur;
+    private $prenomUtilisateur;
+    private $emailUtilisateur;
+    private $mdpUtilisateur;
 
-    public function __construct($data = array()){
-        if (!empty($data)){
-            $this->login = $data['login'];
-            $this->nom = $data['nom'];
-            $this->prenom = $data['prenom'];
+    public function getId() {
+        return $this->idUtilisateur;
+    }
+
+    public function getNom(){
+        return $this->nomUtilisateur;
+    }
+
+    public function getPrenom(){
+        return $this->prenomUtilisateur;
+    }
+
+    public function getEmail(){
+        return $this->emailUtilisateur;
+    }
+
+    public function getMdp(){
+        return $this->mdpUtilisateur;
+    }
+
+    public function setId($i) {
+        $this->idUtilisateur = $i;
+    }
+
+    public function setNom($n){
+        $this->nomUtilisateur = $n;
+    }
+
+    public function setPrenom($p){
+        $this->prenomUtilisateur = $p;
+    }
+
+    public function setEmail($e){
+        $this->emailUtilisateur = $e;
+    }
+
+    public function setMdp($m){
+        $this->mdpUtilisateur = $m;
+    }
+
+    public function __construct($i = NULL, $n = NULL, $p = NULL, $e = NULL, $m = NULL) {
+        if (!is_null($i) && !is_null($n) && !is_null($p)) {
+            $this->idUtilisateur = $i;
+            $this->nomUtilisateur = $n;
+            $this->prenomUtilisateur = $p;
+            $this->emailUtilisateur = $e;
+            $this->mdpUtilisateur = $m;
         }
     }
 
-    public static function getAllUtilisateurs(){
+    public static function getAllUsers(){
         try{
-            $rep = Model::getPDO()->query("SELECT * FROM Utilisateur");
-            $rep->setFetchMode(PDO::FETCH_CLASS, 'Utilisateur');
+            $rep = Model::getPDO()->query("SELECT * FROM Solar__Utilisateurs");
+            $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelUser');
             $tab_user = $rep->fetchAll();
             return $tab_user;
         } catch (PDOException $e) {
             if (Conf::getDebug()) {
                 echo $e->getMessage(); // affiche un message d'erreur
             } else {
-                echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+                echo 'Une erreur est survenue <a href=""> Retour a la page d\'accueil </a>';
             }
             die();
         }
     }
 
-    public function afficher() {
-        echo "Utilisateur {$this->prenom} {$this->nom} de login {$this->login}";
+    public static function getUser($id) {
+        try{
+            $sql = "SELECT * from Solar__Utilisateurs WHERE modelProduit=:nom_tag";
+            // Préparation de la requête
+            $req_prep = Model::getPDO()->prepare($sql);
+
+            $values = array(
+                "nom_tag" => $id,
+            );
+            $req_prep->execute($values);
+
+            $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelUser');
+            $tab_prod = $req_prep->fetchAll();
+            if (empty($tab_prod))
+                return false;
+            return $tab_prod[0];
+        } catch (PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage(); // affiche un message d'erreur
+            } else {
+                echo 'Une erreur est survenue <a href=""> Retour a la page d\'accueil </a>';
+            }
+            die();
+        }
     }
 }
 ?>
