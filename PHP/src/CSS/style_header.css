@@ -108,3 +108,8 @@ section:nth-child(odd) {
 .sections section:first-child {
   margin-top: 100px;
 }
+
+#titreSite{
+  color: black;
+  padding: 5px;
+}
