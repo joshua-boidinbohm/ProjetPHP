@@ -86,7 +86,7 @@ Class ModelUser {
             $req_prep->execute($values);
 
             $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelUser');
-            $tab_prod = $req_prep->fetchAll();
+            $tab_user = $req_prep->fetchAll();
             if (empty($tab_user))
                 return false;
             return $tab_user[0];
