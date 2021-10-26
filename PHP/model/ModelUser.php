@@ -99,5 +99,23 @@ Class ModelUser {
             die();
         }
     }
+
+    public static function newsletter($email){
+        try{
+            $sql = "INSERT INTO Solar__NewsLetter (emailNewsLetter) VALUES (:mail)";
+            $req_prep = Model::getPDO()->prepare($sql);
+            $values = array(
+                "mail" => $email,
+            );
+            $req_prep->execute($values);
+        } catch (PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage(); // affiche un message d'erreur
+            } else {
+                echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+            }
+            die();
+        }
+    }
 }
 ?>

@@ -34,9 +34,11 @@ require $filepath;
             Inscrivez-vous à notre newsletter pour être au courrant de toute l'actualité
         </div>
         <div>
+            <form method="post">
             <fieldset id="fieldset">
                 <input pattern="[a-z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,4}" required="" placeholder="yourmail@domain.com" type="email" id="email" name="email">
                 <input id="valider" type="submit">
+                <input type='hidden' name='action' value='newslettered'>
             </fieldset>
         </div>
     </div>
