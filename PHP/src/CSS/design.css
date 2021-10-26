@@ -9,6 +9,14 @@ body{
 p{
     margin-top: 80px;
     text-align: center;
+}
 
-
+div{
+    margin-top: 2%;
+    align-items: center;
+    text-align: center;
+}
+#article{
+    margin-top: 15px;
+    margin-bottom: 45px;
 }
