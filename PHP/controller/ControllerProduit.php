@@ -24,5 +24,12 @@ class ControllerProduit{
             require File::build_path(array("view","view.php"));
         }
     }
+
+    public static function error(){
+        $controller='produit';
+        $view='error2';
+        $pagetitle='Erreur';
+        require File::build_path(array("view", "view.php"));
+    }
 }
 ?>
