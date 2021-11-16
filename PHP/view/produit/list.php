@@ -3,7 +3,6 @@ foreach ($tab_v as $v){
     $modhtml = htmlspecialchars($v->getModele());
     $modurl = rawurlencode($v->getModele());
 
-    echo '<link href="src/CSS/design.css" rel="stylesheet">';
     echo '<div class="img"> <img src="src/images/panneau1.jpeg">
            </div>';
 
