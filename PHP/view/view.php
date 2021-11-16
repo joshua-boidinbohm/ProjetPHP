@@ -15,6 +15,7 @@
                     <li><a href="?action=readAll">Produits</a></li>
                     <li><a href="?action=readAll&controller=utilisateur">Utilisateurs</a></li>
                     <li><a href="index.php?action=readAll&controller=trajet">Trajets</a></li>
+                    <li><a id="panier" href="index.php?action=panier">Panier</a></li>
                 </ul>
             </nav>
         </div>

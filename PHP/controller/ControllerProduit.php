@@ -31,5 +31,12 @@ class ControllerProduit{
         $pagetitle='Erreur';
         require File::build_path(array("view", "view.php"));
     }
+
+    public static function panier(){
+        $controller='produit';
+        $view='error2';
+        $pagetitle='Panier';
+        require File::build_path(array("view", "produit", "panier.php"));
+    }
 }
 ?>
