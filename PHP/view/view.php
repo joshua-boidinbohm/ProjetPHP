@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link href="src/CSS/design.css" rel="stylesheet">
+    <link href="src/CSS/produit.css" rel="stylesheet">
     <title><?php echo $pagetitle; ?></title>
 </head>
 <header>
