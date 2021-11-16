@@ -34,9 +34,9 @@ class ControllerProduit{
 
     public static function panier(){
         $controller='produit';
-        $view='error2';
+        $view='panier';
         $pagetitle='Panier';
-        require File::build_path(array("view", "produit", "panier.php"));
+        require File::build_path(array("view", "view.php"));
     }
 }
 ?>
