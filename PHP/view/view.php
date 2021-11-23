@@ -16,11 +16,13 @@
                     <li><a href="?action=readAll&controller=utilisateur">Utilisateurs</a></li>
                     <li><a href="index.php?action=readAll&controller=trajet">Trajets</a></li>
                     <li><a id="panier" href="index.php?action=panier">Panier</a></li>
+                    <div id="connexion">
+                            <input type="submit" value="connexion" href="?action=register">
+                        </div>
                 </ul>
+
             </nav>
-            <h2>
-                <input type="button" value="connexion" href="?action=register">
-            </h2>
+
         </div>
     </header>
 <!--
