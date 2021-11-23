@@ -15,7 +15,9 @@ if (!in_array($action, $fct)){
 }
 else {
     if (in_array($action, $fct1)) {
-        if (isset($_GET['mod'])) {
+        if (isset($_GET['quantite'])) {
+            ControllerProduit::$action($_GET['mod'], $_GET['quantite']);
+        } else if (isset($_GET['mod'])) {
             ControllerProduit::$action($_GET['mod']);
         } else {
             ControllerProduit::$action();
