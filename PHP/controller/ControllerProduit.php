@@ -38,5 +38,19 @@ class ControllerProduit{
         $pagetitle='Panier';
         require File::build_path(array("view", "view.php"));
     }
+
+    public static function addPanier($v, $quantite){
+        if (isset($_SESSION[$v])) {
+            $panier = $_SESSION[$v];
+            $panier[1] += $quantite;
+            $_SESSION[$v] = $panier;
+        }
+        else {
+            $panier[0] = $v;
+            $panier[1] = $quantite;
+            $_SESSION[$v] = $panier;
+        }
+        ControllerProduit::read($v);
+    }
 }
 ?>
