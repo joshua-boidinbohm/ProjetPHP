@@ -7,6 +7,9 @@ Class ModelUser {
     private $prenomUtilisateur;
     private $emailUtilisateur;
     private $mdpUtilisateur;
+    private $paysUtilisateur;
+    private $villeUtilisateur;
+    private $adresseUtilsateur;
 
     public function getId() {
         return $this->idUtilisateur;
@@ -26,6 +29,18 @@ Class ModelUser {
 
     public function getMdp(){
         return $this->mdpUtilisateur;
+    }
+
+    public function getPays(){
+        return $this->paysUtilisateur;
+    }
+
+    public function getVille(){
+        return $this->villeUtilisateur;
+    }
+
+    public function getAdresse(){
+        return $this->adresseUtilsateur;
     }
 
     public function setId($i) {
@@ -48,8 +63,20 @@ Class ModelUser {
         $this->mdpUtilisateur = $m;
     }
 
+    public function setPays($paysUtilisateur){
+        $this->paysUtilisateur = $paysUtilisateur;
+    }
+
+    public function setVille($villeUtilisateur){
+        $this->villeUtilisateur = $villeUtilisateur;
+    }
+
+    public function setAdresse($adresseUtilsateur){
+        $this->adresseUtilsateur = $adresseUtilsateur;
+    }
+
     public function __construct($i = NULL, $n = NULL, $p = NULL, $e = NULL, $m = NULL) {
-        if (!is_null($i) && !is_null($n) && !is_null($p)) {
+        if (!is_null($i) && !is_null($n) && !is_null($p) && !is_null($e) && !is_null($m)) {
             $this->idUtilisateur = $i;
             $this->nomUtilisateur = $n;
             $this->prenomUtilisateur = $p;

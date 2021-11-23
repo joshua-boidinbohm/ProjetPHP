@@ -27,4 +27,21 @@ class ControllerUser{
         $pagetitle='Liste des produits';
         require File::build_path(array("view", "view.php"));
     }
+
+    public static function register(){
+        $controller='utilisateur';
+        $view='register';
+        $pagetitle='Création de compte';
+        require File::build_path(array("view","view.php"));
+    }
+
+    public static function registered(){
+        $user1 = new ModelUser();
+        $user1->save();
+        $tab_v = ModelVoiture::getAllProduits();
+        $controller='utilisateur';
+        $view='registered';
+        $pagetitle='Liste des produits';
+        require File::build_path(array("view", "view.php"));
+    }
 }
