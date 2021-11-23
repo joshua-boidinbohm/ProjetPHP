@@ -18,6 +18,9 @@
                     <li><a id="panier" href="index.php?action=panier">Panier</a></li>
                 </ul>
             </nav>
+            <h2>
+                <input type="button" value="connexion" href="?action=register">
+            </h2>
         </div>
     </header>
 <!--
