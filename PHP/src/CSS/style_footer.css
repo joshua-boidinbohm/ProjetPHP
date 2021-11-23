@@ -6,7 +6,10 @@
 #footer{
 	margin-top: 30px;
 	background-color: #343a40;
-	font-family: "verdana",Arial
+	font-family: "verdana",Arial;
+	position:absolute;
+	bottom:0;
+	width: 100%;
 }
 
 #logo_container{

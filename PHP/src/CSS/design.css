@@ -1,8 +1,18 @@
 main{
-    background-color: #4d8f4f;
+    background-color: darkgreen;
     color: white;
     align-content: center;
     padding-top: 100px;
+
+    border-radius: 25px;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 90px;
+
+}
+
+body{
+    background-image: url("../images/test.jpg");
 }
 
 p{
@@ -19,7 +29,7 @@ p{
 }
 #article{
     margin-top: 15px;
-    margin-bottom: 45px;
+
 }
 
 #panier{
