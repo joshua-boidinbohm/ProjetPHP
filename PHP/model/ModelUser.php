@@ -192,5 +192,33 @@ Class ModelUser {
             die();
         }
     }
+
+    public static function update($data){
+        try{
+            $sql = "UPDATE FROM Solar__Utilsateurs SET nomUtilisateur=:nam, prenomUtilisateur=:firstname, emailUtilisateur=:email, mdpUtilisateur=:passwd, paysUtilisateur=:country, villeUtilisateur=:city, cpUtilisateur=:post, adresseUtilisateur=:address,  WHERE idUtilisateur =:compt";
+            $req_prep = Model::getPDO()->prepare($sql);
+
+            $values = array(
+                "id" => $data['id'],
+                "nam" => $data['nom'],
+                "firstname" => $data['prenom'],
+                "email" => $data['email'],
+                "passwd" => $data['mdp'],
+                "country" => $data['pays'],
+                "city" => $data['ville'],
+                "post" => $data['cp'],
+                "address" => $data['adresse'],
+            );
+            $req_prep->execute($values);
+            $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelUser');
+        } catch (PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage(); // affiche un message d'erreur
+            } else {
+                echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+            }
+            die();
+        }
+    }
 }
 ?>
