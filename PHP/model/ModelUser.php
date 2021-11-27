@@ -2,18 +2,14 @@
 
 require_once File::build_path(array("model","Model.php"));
 Class ModelUser {
-    private $idUtilisateur;
     private $nomUtilisateur;
     private $prenomUtilisateur;
     private $emailUtilisateur;
     private $mdpUtilisateur;
     private $paysUtilisateur;
     private $villeUtilisateur;
+    private $cpUtilisateur;
     private $adresseUtilsateur;
-
-    public function getId() {
-        return $this->idUtilisateur;
-    }
 
     public function getNom(){
         return $this->nomUtilisateur;
@@ -39,12 +35,12 @@ Class ModelUser {
         return $this->villeUtilisateur;
     }
 
-    public function getAdresse(){
-        return $this->adresseUtilsateur;
+    public function getCP(){
+        return $this->cpUtilisateur;
     }
 
-    public function setId($i) {
-        $this->idUtilisateur = $i;
+    public function getAdresse(){
+        return $this->adresseUtilsateur;
     }
 
     public function setNom($n){
@@ -63,25 +59,32 @@ Class ModelUser {
         $this->mdpUtilisateur = $m;
     }
 
-    public function setPays($paysUtilisateur){
-        $this->paysUtilisateur = $paysUtilisateur;
+    public function setPays($c){
+        $this->paysUtilisateur = $c;
     }
 
-    public function setVille($villeUtilisateur){
-        $this->villeUtilisateur = $villeUtilisateur;
+    public function setVille($v){
+        $this->villeUtilisateur = $v;
     }
 
-    public function setAdresse($adresseUtilsateur){
-        $this->adresseUtilsateur = $adresseUtilsateur;
+    public function setCP($cp){
+        $this->cpUtilisateur = $cp;
     }
 
-    public function __construct($i = NULL, $n = NULL, $p = NULL, $e = NULL, $m = NULL) {
-        if (!is_null($i) && !is_null($n) && !is_null($p) && !is_null($e) && !is_null($m)) {
-            $this->idUtilisateur = $i;
+    public function setAdresse($a){
+        $this->adresseUtilsateur = $a;
+    }
+
+    public function __construct($i = NULL, $n = NULL, $p = NULL, $e = NULL, $m = NULL, $c = NULL, $v = NULL, $cp = NULL, $a = NULL) {
+        if (!is_null($i) && !is_null($n) && !is_null($p) && !is_null($e) && !is_null($m) && !is_null($c) && !is_null($v) && !is_null($cp) && !is_null($a)) {
             $this->nomUtilisateur = $n;
             $this->prenomUtilisateur = $p;
             $this->emailUtilisateur = $e;
             $this->mdpUtilisateur = $m;
+            $this->paysUtilisateur = $c;
+            $this->villeUtilisateur = $v;
+            $this->cpUtilisateur = $cp;
+            $this->adresseUtilsateur = $a;
         }
     }
 
@@ -135,6 +138,51 @@ Class ModelUser {
                 "mail" => $email,
             );
             $req_prep->execute($values);
+        } catch (PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage(); // affiche un message d'erreur
+            } else {
+                echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+            }
+            die();
+        }
+    }
+
+    public function save(){
+        try{
+            $sql = "INSERT INTO Solar__Utilisateurs (nomUtilisateur, prenomUtilisateur, emailUtilisateur, mdpUtilisateur, paysUtilisateur, villeUtilisateur, cpUtilisateur, adresseUtilisateur) VALUES (:nam, :firstname, :email, :passwd, :country, :city, :post, :address)";
+            $req_prep = Model::getPDO()->prepare($sql);
+            $values = array(
+                "nam" => $this->nomUtilisateur,
+                "firstname" => $this->prenomUtilisateur,
+                "email" => $this->emailUtilisateur,
+                "passwd" => $this->mdpUtilisateur,
+                "country" => $this->paysUtilisateur,
+                "city" => $this->villeUtilisateur,
+                "post" => $this->cpUtilisateur,
+                "address" => $this->adresseUtilsateur,
+            );
+            $req_prep->execute($values);
+        } catch (PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage(); // affiche un message d'erreur
+            } else {
+                echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+            }
+            die();
+        }
+    }
+
+    public static function deleteUser($id){
+        try{
+            $sql = "DELETE FROM Solar__Utilisateurs WHERE immatriculation =:compte";
+            $req_prep = Model::getPDO()->prepare($sql);
+
+            $values = array(
+                "compte" => $id,
+            );
+            $req_prep->execute($values);
+            $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelUser');
         } catch (PDOException $e) {
             if (Conf::getDebug()) {
                 echo $e->getMessage(); // affiche un message d'erreur

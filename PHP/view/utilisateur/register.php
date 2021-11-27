@@ -1,17 +1,37 @@
 <form method="post">
 <fieldset>
-    <legend>Voiture :</legend>
+    <legend>Renseignez vos informations :</legend>
         <p>
-            <label for="marque">Marque</label> :
-            <input type="text" placeholder="Peugeot" name="marque" id="marque" required/>
-
-        <p>
-            <label for="couleur">Couleur</label> :
-            <input type="text" placeholder="bleu" name="couleur" id="couleur" required/>
+            <label for="nom">Votre nom</label> :
+            <input type="text" placeholder="Dupont" name="nom" id="nom" required/>
         </p>
         <p>
-            <label for="immat_id">Immatriculation</label> :
-            <input type="text" placeholder="256AB34" name="immatriculation" id="immat_id" required/>
+            <label for="prenom">Votre prénom</label> :
+            <input type="text" placeholder="Jean" name="prenom" id="prenom" required/>
+        </p>
+        <p>
+            <label for="email">Votre email</label> :
+            <input type="email" placeholder="mail@domaine.fr" name="email" id="email" required/>
+        </p>
+        <p>
+            <label for="mdp">Votre mot de passe</label> :
+            <input type="password" name="nom" id="nom" required/>
+        </p>
+        <p>
+            <label for="adresse">Votre adresse</label> :
+            <input type="text" placeholder="162 allée Blaise Pascal" name="adresse" id="adresse" required/>
+        </p>
+        <p>
+            <label for="ville">Votre ville</label> :
+            <input type="text" placeholder="Paris" name="ville" id="ville" required/>
+        </p>
+        <p>
+            <label for="cp">Votre code postal</label> :
+            <input type="text" placeholder="75000" name="cp" id="cp" required/>
+        </p>
+        <p>
+            <label for="pays">Votre pays (nous ne livrons qu'en France pour le moment)</label> :
+            <input type="text" value="France" name="pays" id="pays" disabled/>
         </p>
         <input type='hidden' name='action' value='registered'>
         <p>
