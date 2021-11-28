@@ -5,8 +5,8 @@ class ControllerProduit{
         $controller='produit';
         $view='list';
         $pagetitle='Liste des produits';
-        $tab_v = ModelProduit::getAllProduits();     //appel au modèle pour gerer la BD
-        require File::build_path(array("view","view.php"));  //"redirige" vers la vue
+        $tab_v = ModelProduit::getAllProduits();
+        require File::build_path(array("view","view.php"));
     }
 
     public static function read($mod){

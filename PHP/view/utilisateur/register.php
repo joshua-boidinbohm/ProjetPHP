@@ -11,11 +11,11 @@
         </p>
         <p>
             <label for="email">Votre email</label> :
-            <input type="email" placeholder="mail@domaine.fr" name="email" id="email" required/>
+            <input type="email" placeholder="mail@domaine.fr" name="email" class="email" required/>
         </p>
         <p>
             <label for="mdp">Votre mot de passe</label> :
-            <input type="password" name="nom" id="nom" required/>
+            <input type="password" name="mdp" class="mdp" required/>
         </p>
         <p>
             <label for="adresse">Votre adresse</label> :
@@ -35,7 +35,7 @@
         </p>
         <input type='hidden' name='action' value='registered'>
         <p>
-            <input type="submit" value="Envoyer" />
+            <input type="submit" value="S'inscrire" />
         </p>
 </fieldset>
 </form>

@@ -104,14 +104,14 @@ Class ModelUser {
         }
     }
 
-    public static function getUser($id) {
+    public static function getUser($email) {
         try{
-            $sql = "SELECT * from Solar__Utilisateurs WHERE idUtilisateur=:nom_tag";
+            $sql = "SELECT * from Solar__Utilisateurs WHERE emailUtilisateur=:mail";
             // Préparation de la requête
             $req_prep = Model::getPDO()->prepare($sql);
 
             $values = array(
-                "nom_tag" => $id,
+                "mail" => $email,
             );
             $req_prep->execute($values);
 
@@ -173,13 +173,13 @@ Class ModelUser {
         }
     }
 
-    public static function deleteUser($id){
+    public static function deleteUser($email){
         try{
             $sql = "DELETE FROM Solar__Utilisateurs WHERE immatriculation =:compte";
             $req_prep = Model::getPDO()->prepare($sql);
 
             $values = array(
-                "compte" => $id,
+                "compte" => $email,
             );
             $req_prep->execute($values);
             $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelUser');
@@ -216,6 +216,62 @@ Class ModelUser {
                 echo $e->getMessage(); // affiche un message d'erreur
             } else {
                 echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+            }
+            die();
+        }
+    }
+
+    public function getIDUser($email){
+        try{
+            $sql = "SELECT idUtilisateur from Solar__Utilisateurs WHERE emailUtilisateur=:mail";
+            // Préparation de la requête
+            $req_prep = Model::getPDO()->prepare($sql);
+
+            $values = array(
+                "mail" => $email,
+            );
+            $req_prep->execute($values);
+
+            $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelUser');
+            $tab_user = $req_prep->fetchAll();
+            if (empty($tab_user))
+                return false;
+            return $tab_user[0];
+        } catch (PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage(); // affiche un message d'erreur
+            } else {
+                echo 'Une erreur est survenue <a href=""> Retour a la page d\'accueil </a>';
+            }
+            die();
+        }
+    }
+
+    public static function checkPassword($login, $mot_de_passe_hache){
+        try{
+            $sql = "SELECT * from Solar__Utilisateurs WHERE emailUtilisateur=:email AND mdpUtilisateur=:mdp";
+            // Préparation de la requête
+            $req_prep = Model::getPDO()->prepare($sql);
+
+            $values = array(
+                "email" => $login,
+                "mdp" => $mot_de_passe_hache,
+            );
+            $req_prep->execute($values);
+
+            $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelUser');
+            $tab_user = $req_prep->fetchAll();
+            if (!empty($tab_user)) {
+                return true;
+            }
+            else{
+                return false;
+            }
+        } catch (PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage(); // affiche un message d'erreur
+            } else {
+                echo 'Une erreur est survenue <a href=""> Retour a la page d\'accueil </a>';
             }
             die();
         }

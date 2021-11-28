@@ -14,10 +14,10 @@
                 <ul>
                     <li><a href="?action=readAll">Produits</a></li>
                     <li><a href="?action=readAll&controller=utilisateur">Utilisateurs</a></li>
-                    <li><a href="index.php?action=readAll&controller=trajet">Trajets</a></li>
+                    <li><a href="index.php?action=connect">Trajets</a></li>
                     <li><a id="panier" href="index.php?action=panier">Panier</a></li>
                     <div id="connexion">
-                            <input type="submit" value="connexion" href="?action=register">
+                            <input type="submit" value="connexion" href="?action=connect">
                         </div>
                 </ul>
 
@@ -25,20 +25,10 @@
 
         </div>
     </header>
-<!--
-    <nav style="border: 1px solid black;text-align:center;padding-right:1em;">
-        <a href="?action=readAll">Produits</a>
-        <a href="?action=readAll&controller=utilisateur">Utilisateurs</a>
-        <a href="index.php?action=readAll&controller=trajet">Trajets</a>
-    </nav>
-    -->
 </header>
 <main>
     <body>
-
         <?php
-            // Si $controleur='produit' et $view='list',
-            // alors $filepath="/chemin_du_site/view/produit/list.php"
             $filepath = File::build_path(array("view", $controller, "$view.php"));
             require $filepath;
         ?>
