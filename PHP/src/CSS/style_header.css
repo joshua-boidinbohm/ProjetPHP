@@ -6,8 +6,8 @@
   font-family: bitter;
 }
 body {
-  height: 100%;
-  min-height: 100%;
+  height: 98vh;
+  min-height: 98vh;
 }
 a {
   text-decoration: none;

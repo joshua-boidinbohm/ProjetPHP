@@ -2,17 +2,23 @@
 	margin:0;
 	padding: 0;
 }
-
+body {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
 
 #footer{
 	display: block;
-	margin-top: 90px;
+	top : auto;
 	background-color: rgba(255, 255, 255, 0.6);
 	font-family: "verdana",Arial;
 	position:relative;
-	bottom:0;
+	bottom:0em;
 	width: 100%;
 	color: dodgerblue;
+	margin-top: fill;
+
 }
 
 #logo_container{

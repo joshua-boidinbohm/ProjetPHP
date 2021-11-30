@@ -1,6 +1,6 @@
 <?php
     echo '<p> Panneau solaire ' . htmlspecialchars($v->getModele()) . ' de nom ' . htmlspecialchars($v->getNom()) . ' (puissance ' . htmlspecialchars($v->getPuissance()) . ') ';
-    echo '<form method="get">
+    echo '<form class="transparent" method="get">
                 <div>
                     <input type="hidden" name="action" value="addPanier">
                     <input type="hidden" name="mod" value="'.$v->getModele().'">

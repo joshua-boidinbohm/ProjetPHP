@@ -3,6 +3,17 @@ require_once File::build_path(array("model","ModelUser.php"));
 require_once File::build_path(array("model", "ModelProduit.php"));
 require_once File::build_path(array("lib", "Security.php"));
 class ControllerUser{
+
+
+
+    public static function readAllUser(){
+        $controller='utilisateur';
+        $view='list';
+        $pagetitle='Liste des utilisateurs';
+        $tab_v = ModelUser::getAllUsers();
+        require File::build_path(array("view","view.php"));
+    }
+
     public static function readUser($email){
         if (ModelUser::getUser($email)==null){
             $controller='utilisateur';
