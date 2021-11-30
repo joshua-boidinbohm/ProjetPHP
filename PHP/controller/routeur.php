@@ -17,6 +17,8 @@ else {
     if (in_array($action, $fct1)) {
         if (isset($_GET['quantite'])) {
             ControllerProduit::$action($_GET['mod'], $_GET['quantite']);
+        } else if ($action == "delete"){
+          ControllerProduit::delete($_GET['mod']);
         } else if (isset($_GET['mod'])) {
             ControllerProduit::$action($_GET['mod']);
         } else {
