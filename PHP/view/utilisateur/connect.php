@@ -1,4 +1,4 @@
-<form method="get">
+<form method="post">
     <fieldset>
         <legend>Connectez-vous :</legend>
         <p>

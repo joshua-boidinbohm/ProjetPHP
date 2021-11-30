@@ -16,8 +16,9 @@
                     <li><a href="?action=readAll&controller=utilisateur">Utilisateurs</a></li>
                     <li><a href="index.php?action=connect">Trajets</a></li>
                     <li><a id="panier" href="index.php?action=panier">Panier</a></li>
+                    <li><a id="panier" href="index.php?action=adminPage">Admin</a></li>
                     <div id="connexion">
-                            <input type="submit" value="connexion" href="?action=connect">
+                        <a id="panier" href="index.php?action=connect">Connexion</a>
                         </div>
                 </ul>
 

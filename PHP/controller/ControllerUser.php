@@ -65,4 +65,11 @@ class ControllerUser{
         $pagetitle='Liste des produits';
         require File::build_path(array("view", "view.php"));
     }
+
+    public static function adminPage(){
+        $controller='utilisateur';
+        $view='admin';
+        $pagetitle='admin';
+        require File::build_path(array("view","view.php"));
+    }
 }

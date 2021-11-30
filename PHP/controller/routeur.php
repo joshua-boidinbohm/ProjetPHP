@@ -24,8 +24,8 @@ else {
         }
     }
     else {
-        if (isset($_GET['mdp'])){
-            ControllerUser::connected($_GET['email'], $_GET['mdp']);
+        if (isset($_POST['mdp'])){
+            ControllerUser::connected($_POST['email'], $_POST['mdp']);
         } else if (isset($_GET['id'])) {
             ControllerUser::$action($_GET['id']);
         } else if (isset($_GET['email'])) {
