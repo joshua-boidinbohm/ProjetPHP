@@ -49,7 +49,7 @@
                 Inscrivez-vous à notre newsletter pour être au courrant de toute l'actualité
             </div>
             <div>
-                <form method="get">
+                <form id="newsletter" method="get">
                     <fieldset id="fieldset">
                         <input pattern="[a-z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,4}" type="email" placeholder="yourmail@domain.com" id="email" name="email" required>
                         <input id="valider" type="submit">
