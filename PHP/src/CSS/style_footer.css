@@ -6,11 +6,12 @@
 #footer{
 	display: block;
 	margin-top: 90px;
-	background-color: rgba(52, 58, 64, 0.8);
+	background-color: rgba(255, 255, 255, 0.6);
 	font-family: "verdana",Arial;
 	position:relative;
 	bottom:0;
 	width: 100%;
+	color: dodgerblue;
 }
 
 #logo_container{
@@ -20,7 +21,7 @@
 }
 
 .texte_indication{
-	color: #adadad;
+	color: dodgerblue;
 	margin-top: 10px;
 	margin-bottom: 17px;
 	text-align: center;
@@ -29,7 +30,9 @@
 .link{
 color: #3d7e9a;
 }
-
+#newsletter{
+	background-color: rgba(255, 255, 255, 0.0);
+}
 #fieldset{
 	box-shadow: none;
 	border: none;

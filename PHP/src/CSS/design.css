@@ -1,19 +1,22 @@
 main{
-    background-color: rgba(52, 58, 64, 0.8);
-    color: white;
+    background-color: rgba(255,255,255, 0.6);
+    color: dodgerblue;
     align-content: center;
     padding-top: 100px;
+    padding-bottom: 100px;
 
     border-radius: 25px;
 
     margin-top: 90px;
     margin-bottom: 90px;
+    margin-left: 5%;
+    margin-right: 5%;
 
 
 }
 
 body{
-    background-image: url("../images/test.jpg");
+    background-image: url("../images/testV2.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -21,7 +24,7 @@ body{
 }
 
 p{
-    margin-top: 80px;
+    padding: 10px;
     text-align: center;
 }
 
