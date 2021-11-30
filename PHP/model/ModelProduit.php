@@ -58,6 +58,24 @@ class ModelProduit{
         }
     }
 
+    public static function delete($mod){
+        try {
+            $sql = "DELETE FROM Solar__Produits WHERE modelProduit =:nom_tag";
+            $req_prep = Model::getPDO()->prepare($sql);
+            $values = array(
+                "nom_tag" => $mod,
+            );
+            $req_prep->execute($values);
+        } catch (PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage(); // affiche un message d'erreur
+            } else {
+                echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+            }
+            die();
+        }
+    }
+
     public static function getProduitByModele($mod) {
         try{
             $sql = "SELECT * from Solar__Produits WHERE modelProduit=:nom_tag";
