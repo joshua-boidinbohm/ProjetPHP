@@ -1,4 +1,4 @@
-<form method="post">
+<form class="transparent" method="post">
     <fieldset>
         <legend>Connectez-vous :</legend>
         <p>
@@ -15,3 +15,4 @@
         </p>
     </fieldset>
 </form>
+.
