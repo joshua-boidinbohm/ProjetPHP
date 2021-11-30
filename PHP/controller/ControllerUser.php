@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once File::build_path(array("model","ModelUser.php"));
 require_once File::build_path(array("model", "ModelProduit.php"));
 require_once File::build_path(array("lib", "Security.php"));
