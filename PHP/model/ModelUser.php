@@ -2,6 +2,7 @@
 
 require_once File::build_path(array("model","Model.php"));
 Class ModelUser {
+    private $idUtilisateur;
     private $nomUtilisateur;
     private $prenomUtilisateur;
     private $emailUtilisateur;
@@ -10,6 +11,10 @@ Class ModelUser {
     private $villeUtilisateur;
     private $cpUtilisateur;
     private $adresseUtilsateur;
+
+    public function getID(){
+        return $this->idUtilisateur;
+    }
 
     public function getNom(){
         return $this->nomUtilisateur;
@@ -75,8 +80,9 @@ Class ModelUser {
         $this->adresseUtilsateur = $a;
     }
 
-    public function __construct($i = NULL, $n = NULL, $p = NULL, $e = NULL, $m = NULL, $c = NULL, $v = NULL, $cp = NULL, $a = NULL) {
-        if (!is_null($i) && !is_null($n) && !is_null($p) && !is_null($e) && !is_null($m) && !is_null($c) && !is_null($v) && !is_null($cp) && !is_null($a)) {
+    public function __construct($n = NULL, $p = NULL, $e = NULL, $m = NULL, $c = NULL, $v = NULL, $cp = NULL, $a = NULL) {
+        if (!is_null($n) && !is_null($p) && !is_null($e) && !is_null($m) && !is_null($c) && !is_null($v) && !is_null($cp) && !is_null($a)) {
+            $this->idUtilisateur = NULL;
             $this->nomUtilisateur = $n;
             $this->prenomUtilisateur = $p;
             $this->emailUtilisateur = $e;
@@ -150,7 +156,7 @@ Class ModelUser {
 
     public function save(){
         try{
-            $sql = "INSERT INTO Solar__Utilisateurs (nomUtilisateur, prenomUtilisateur, emailUtilisateur, mdpUtilisateur, paysUtilisateur, villeUtilisateur, cpUtilisateur, adresseUtilisateur) VALUES (:nam, :firstname, :email, :passwd, :country, :city, :post, :address)";
+            $sql = "INSERT INTO Solar__Utilisateurs (idUtilisateur, nomUtilisateur, prenomUtilisateur, emailUtilisateur, mdpUtilisateur, paysUtilisateur, villeUtilisateur, cpUtilisateur, adresseUtilisateur) VALUES (NULL, :nam, :firstname, :email, :passwd, :country, :city, :post, :address)";
             $req_prep = Model::getPDO()->prepare($sql);
             $values = array(
                 "nam" => $this->nomUtilisateur,

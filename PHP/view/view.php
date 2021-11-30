@@ -18,7 +18,13 @@
                     <li><a id="panier" href="index.php?action=panier">Panier</a></li>
                     <li><a id="panier" href="index.php?action=adminPage">Admin</a></li>
                     <div id="connexion">
-                        <a id="panier" href="index.php?action=connect">Connexion</a>
+                        <?php
+                        if (isset($_SESSION["login"])){
+                            echo '<a id="panier" href="index.php?action=readUser&email=' . rawurlencode($_SESSION["login"]) . '">Compte</a>';
+                        } else {
+                            echo '<a id="panier" href="index.php?action=connect">Connexion</a>';
+                        }
+                        ?>
                         </div>
                 </ul>
 

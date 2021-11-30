@@ -66,8 +66,9 @@ class ControllerUser{
         require File::build_path(array("view","view.php"));
     }
 
-    public static function registered(){
-        $user1 = new ModelUser();
+    public static function registered($nom, $prenom, $email, $mdp, $pays, $ville, $cp, $address){
+        $user1 = new ModelUser($nom, $prenom, $email, $mdp, $pays, $ville, $cp, $address);
+        var_dump($user1);
         $user1->save();
         $tab_v = ModelProduit::getAllProduits();
         $controller='utilisateur';
@@ -80,6 +81,16 @@ class ControllerUser{
         $controller='utilisateur';
         $view='admin';
         $pagetitle='admin';
+        require File::build_path(array("view","view.php"));
+    }
+
+    public static function disconnect(){
+        session_unset();
+        session_destroy();
+        $controller='produit';
+        $view='list';
+        $pagetitle='Liste des produits';
+        $tab_v = ModelProduit::getAllProduits();
         require File::build_path(array("view","view.php"));
     }
 }

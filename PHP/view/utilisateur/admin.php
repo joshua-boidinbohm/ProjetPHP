@@ -1,5 +1,5 @@
 <h1>
-    Onglet Administration
+    <p>Onglet Administration</p>
 </h1>
 <h2>
     Liste des produits :
@@ -10,7 +10,7 @@ foreach ($tab_v as $v) {
     $modhtml = htmlspecialchars($v->getModele());
     $modurl = rawurlencode($v->getModele());
     echo '<p id="article"> 
-                    Produit de modèle ' . $modhtml . ' <a href="?action=delete&mod=' . $modurl . '">(- supprimer)</a>
+                    ' . $modhtml . ' <a href="?action=delete&mod=' . $modurl . '">(- supprimer)</a>
               </p>';
 }
 ?>
@@ -18,5 +18,5 @@ foreach ($tab_v as $v) {
     Ajouter un produit :
 </h2>
 <p>
-    à implémenter ! il faut que l'on puisse ajouter une voiture en BD.
+    à implémenter ! il faut que l'on puisse ajouter un produit dans la BD.
 </p>

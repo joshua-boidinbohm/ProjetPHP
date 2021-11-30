@@ -15,4 +15,5 @@
         </p>
     </fieldset>
 </form>
-.
+
+<p>Vous n'avez pas de compte ? <a href="?action=register">S'enregister</a></p>

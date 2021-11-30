@@ -1,4 +1,4 @@
-<form method="post">
+<form class="transparent" method="post">
 <fieldset>
     <legend>Renseignez vos informations :</legend>
         <p>

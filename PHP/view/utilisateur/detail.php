@@ -1,4 +1,4 @@
 <?php
-//var_dump($v->getEmail());
-    echo '<p> Utilisateur ' . $v->getNom(). ' ' . $v->getPrenom() . ' <br> Son email est ' . $v->getEmail() . ' <br> Son mot de passe est ' . $v->getMdp() . ' .</p>';
+    echo '<p> Utilisateur ' . $v->getNom(). ' ' . $v->getPrenom() . ' d\'ID ' . $v->getID() . '. Son email est ' . $v->getEmail() . '.</p><br>';
+    echo '<p><a href="?action=disconnect">(se déconnecter)</a></p>';
 ?>

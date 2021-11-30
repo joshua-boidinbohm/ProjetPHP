@@ -26,7 +26,9 @@ else {
         }
     }
     else {
-        if (isset($_POST['mdp'])){
+        if (isset($_POST['cp'])){
+            ControllerUser::registered($_POST['nom'], $_POST['prenom'], $_POST['email'], $_POST['mdp'], $_POST['adresse'], $_POST['ville'], $_POST['cp'], $_POST['pays']);
+        } else if (isset($_POST['mdp'])){
             ControllerUser::connected($_POST['email'], $_POST['mdp']);
         } else if (isset($_GET['id'])) {
             ControllerUser::$action($_GET['id']);
