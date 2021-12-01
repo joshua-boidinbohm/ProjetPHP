@@ -68,7 +68,6 @@ class ControllerUser{
 
     public static function registered($nom, $prenom, $email, $mdp, $pays, $ville, $cp, $address){
         $user1 = new ModelUser($nom, $prenom, $email, $mdp, $pays, $ville, $cp, $address);
-        var_dump($user1);
         $user1->save();
         $tab_v = ModelProduit::getAllProduits();
         $controller='utilisateur';

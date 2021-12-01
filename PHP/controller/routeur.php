@@ -27,7 +27,7 @@ else {
     }
     else {
         if (isset($_POST['cp'])){
-            ControllerUser::registered($_POST['nom'], $_POST['prenom'], $_POST['email'], $_POST['mdp'], $_POST['pays'], $_POST['ville'], $_POST['cp'], $_POST['adresse']);
+            ControllerUser::registered($_POST['nom'], $_POST['prenom'], $_POST['email'], $_POST['mdp'], 'France', $_POST['ville'], $_POST['cp'], $_POST['adresse']);
         } else if (isset($_POST['mdp'])){
             ControllerUser::connected($_POST['email'], $_POST['mdp']);
         } else if (isset($_GET['id'])) {
