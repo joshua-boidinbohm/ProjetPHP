@@ -11,6 +11,7 @@ Class ModelUser {
     private $villeUtilisateur;
     private $cpUtilisateur;
     private $adresseUtilsateur;
+    private $admin;
 
     public function getID(){
         return $this->idUtilisateur;
@@ -46,6 +47,10 @@ Class ModelUser {
 
     public function getAdresse(){
         return $this->adresseUtilsateur;
+    }
+
+    public function getAdmin(){
+        return $this->admin;
     }
 
     public function setNom($n){
@@ -91,6 +96,7 @@ Class ModelUser {
             $this->villeUtilisateur = $v;
             $this->cpUtilisateur = $cp;
             $this->adresseUtilsateur = $a;
+            $this->admin = '0';
         }
     }
 
@@ -110,14 +116,14 @@ Class ModelUser {
         }
     }
 
-    public static function getUser($email) {
+    public static function getUser($id) {
         try{
-            $sql = "SELECT * from Solar__Utilisateurs WHERE emailUtilisateur=:mail";
+            $sql = "SELECT * from Solar__Utilisateurs WHERE idUtilisateur=:id";
             // Préparation de la requête
             $req_prep = Model::getPDO()->prepare($sql);
 
             $values = array(
-                "mail" => $email,
+                "id" => $id,
             );
             $req_prep->execute($values);
 
@@ -156,7 +162,7 @@ Class ModelUser {
 
     public function save(){
         try{
-            $sql = "INSERT INTO Solar__Utilisateurs (idUtilisateur, nomUtilisateur, prenomUtilisateur, emailUtilisateur, mdpUtilisateur, paysUtilisateur, villeUtilisateur, cpUtilisateur, adresseUtilisateur) VALUES (NULL, :nam, :firstname, :email, :passwd, :country, :city, :post, :address)";
+            $sql = "INSERT INTO Solar__Utilisateurs (idUtilisateur, nomUtilisateur, prenomUtilisateur, emailUtilisateur, mdpUtilisateur, paysUtilisateur, villeUtilisateur, cpUtilisateur, adresseUtilisateur, admin) VALUES (NULL, :nam, :firstname, :email, :passwd, :country, :city, :post, :address, '0')";
             $req_prep = Model::getPDO()->prepare($sql);
             $values = array(
                 "nam" => $this->nomUtilisateur,
@@ -179,13 +185,39 @@ Class ModelUser {
         }
     }
 
-    public static function deleteUser($email){
+    public static function isAdmin($id){
         try{
-            $sql = "DELETE FROM Solar__Utilisateurs WHERE immatriculation =:compte";
+            $sql = "SELECT admin from Solar__Utilisateurs WHERE idUtilisateur=:idi";
+            $req_prep = Model::getPDO()->prepare($sql);
+            $values = array(
+                "idi" => $id,
+            );
+            $req_prep->execute($values);
+
+            $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelUser');
+            $tab_user = $req_prep->fetchAll();
+            if ($tab_user[0]=='1') {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage(); // affiche un message d'erreur
+            } else {
+                echo 'Une erreur est survenue <a href=""> Retour a la page d\'accueil </a>';
+            }
+            die();
+        }
+    }
+
+    public static function deleteUser($id){
+        try{
+            $sql = "DELETE FROM Solar__Utilisateurs WHERE idUtilisateur=:id";
             $req_prep = Model::getPDO()->prepare($sql);
 
             $values = array(
-                "compte" => $email,
+                "id" => $id,
             );
             $req_prep->execute($values);
             $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelUser');
@@ -222,32 +254,6 @@ Class ModelUser {
                 echo $e->getMessage(); // affiche un message d'erreur
             } else {
                 echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
-            }
-            die();
-        }
-    }
-
-    public function getIDUser($email){
-        try{
-            $sql = "SELECT idUtilisateur from Solar__Utilisateurs WHERE emailUtilisateur=:mail";
-            // Préparation de la requête
-            $req_prep = Model::getPDO()->prepare($sql);
-
-            $values = array(
-                "mail" => $email,
-            );
-            $req_prep->execute($values);
-
-            $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelUser');
-            $tab_user = $req_prep->fetchAll();
-            if (empty($tab_user))
-                return false;
-            return $tab_user[0];
-        } catch (PDOException $e) {
-            if (Conf::getDebug()) {
-                echo $e->getMessage(); // affiche un message d'erreur
-            } else {
-                echo 'Une erreur est survenue <a href=""> Retour a la page d\'accueil </a>';
             }
             die();
         }

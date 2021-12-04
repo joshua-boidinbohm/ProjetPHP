@@ -14,8 +14,8 @@ class ControllerUser{
         require File::build_path(array("view","view.php"));
     }
 
-    public static function readUser($email){
-        if (ModelUser::getUser($email)==null){
+    public static function readUser($id){
+        if (ModelUser::getUser($id)==null){
             $controller='utilisateur';
             $view='error';
             $pagetitle='Erreur';
@@ -25,7 +25,7 @@ class ControllerUser{
             $controller='utilisateur';
             $view='detail';
             $pagetitle='Informations utilisateur';
-            $v = ModelUser::getUser($email);
+            $v = ModelUser::getUser($id);
             require File::build_path(array("view","view.php"));
         }
     }
