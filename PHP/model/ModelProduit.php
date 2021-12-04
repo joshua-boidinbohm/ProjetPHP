@@ -6,6 +6,8 @@ class ModelProduit{
     private $modelProduit;
     private $nomProduit;
     private $puissanceProduit;
+    private $prixProduit;
+    private $descriptionProduit;
 
     public function getModele() {
         return $this->modelProduit;
@@ -17,6 +19,14 @@ class ModelProduit{
 
     public function getPuissance(){
         return $this->puissanceProduit;
+    }
+
+    public function getPrix(){
+        return $this->prixProduit;
+    }
+
+    public function getDesc(){
+        return $this->descriptionProduit;
     }
 
     public function setModele($m) {
@@ -31,14 +41,13 @@ class ModelProduit{
         $this->puissanceProduit = $p;
     }
 
-    public function __construct($m = NULL, $n = NULL, $p = NULL) {
-        if (!is_null($m) && !is_null($n) && !is_null($p)) {
-            // Si aucun de $m et $p sont nuls,
-            // c'est forcement qu'on les a fournis
-            // donc on retombe sur le constructeur à 2 arguments
+    public function __construct($m = NULL, $n = NULL, $p = NULL, $e = NULL, $d = NULL) {
+        if (!is_null($m) && !is_null($n) && !is_null($p) && !is_null($e) && !is_null($d)) {
             $this->modelProduit = $m;
             $this->nomProduit = $n;
             $this->puissanceProduit = $p;
+            $this->prixProduit = $e;
+            $this->descriptionProduit = $d;
         }
     }
 
@@ -60,15 +69,15 @@ class ModelProduit{
 
     public static function delete($mod){
         try {
-            $sql = "DELETE FROM Solar__Produits WHERE modelProduit =:nom_tag";
+            $sql = "DELETE FROM Solar__Produits WHERE modelProduit =:modele";
             $req_prep = Model::getPDO()->prepare($sql);
             $values = array(
-                "nom_tag" => $mod,
+                "modele" => $mod,
             );
             $req_prep->execute($values);
         } catch (PDOException $e) {
             if (Conf::getDebug()) {
-                echo $e->getMessage(); // affiche un message d'erreur
+                echo $e->getMessage();
             } else {
                 echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
             }
@@ -78,27 +87,22 @@ class ModelProduit{
 
     public static function getProduitByModele($mod) {
         try{
-            $sql = "SELECT * from Solar__Produits WHERE modelProduit=:nom_tag";
-            // Préparation de la requête
+            $sql = "SELECT * from Solar__Produits WHERE modelProduit=:modele";
             $req_prep = Model::getPDO()->prepare($sql);
 
             $values = array(
-                "nom_tag" => $mod,
-                //nomdutag => valeur, ...
+                "modele" => $mod,
             );
-            // On donne les valeurs et on exécute la requête
             $req_prep->execute($values);
 
-            // On récupère les résultats comme précédemment
             $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelProduit');
             $tab_prod = $req_prep->fetchAll();
-            // Attention, si il n'y a pas de résultats, on renvoie false
             if (empty($tab_prod))
                 return false;
             return $tab_prod[0];
         } catch (PDOException $e) {
             if (Conf::getDebug()) {
-                echo $e->getMessage(); // affiche un message d'erreur
+                echo $e->getMessage();
             } else {
                 echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
             }
