@@ -63,7 +63,7 @@ class ControllerUser{
     }
 
     public static function connected($email, $mdp){
-        //$mdp = Security::hacher($mdp);
+        $mdp = Security::hacher($mdp);
         if (ModelUser::checkPassword($email, $mdp) == true){
             $_SESSION['login'] = $email;
             ControllerUser::readUser($email);
@@ -84,7 +84,7 @@ class ControllerUser{
 
     public static function registered($nom, $prenom, $email, $mdp, $mdp2, $pays, $ville, $cp, $address){
         if ($mdp == $mdp2) {
-            //$mdp = Security::hacher($mdp);
+            $mdp = Security::hacher($mdp);
             $user1 = new ModelUser($nom, $prenom, $email, $mdp, $pays, $ville, $cp, $address);
             $user1->save();
             $tab_v = ModelProduit::getAllProduits();
@@ -175,11 +175,11 @@ class ControllerUser{
 
     public static function updatedMdp(){
         if ($_POST['newpasswd'] == $_POST['newpasswd2']){
-            //$oldpasswd = Security::hacher($_POST['oldpasswd']);
-            if (ModelUser::checkPassword($_SESSION['login'], $_POST['oldpasswd']) == true){
-                //$newpasswd = Security::hacher($_POST['newpasswd']);
+            $oldpasswd = Security::hacher($_POST['oldpasswd']);
+            if (ModelUser::checkPassword($_SESSION['login'], $oldpasswd) == true){
+                $newpasswd = Security::hacher($_POST['newpasswd']);
                 $v = ModelUser::getUser($_SESSION['login']);
-                $v->updateMdp($_POST['newpasswd']);
+                $v->updateMdp($newpasswd);
                 ControllerUser::readUser($_SESSION['login']);
             } else {
                 $controller = 'utilisateur';
@@ -201,7 +201,7 @@ class ControllerUser{
             $view = 'error2';
             $pagetitle = 'Erreur';
             require File::build_path(array("view", "view.php"));
-        } else if (ModelUser::isAdmin(ModelUser::getUser($_SESSION['login'])->getID())){
+        } else if (ModelUser::isAdmin()){
             $controller = 'utilisateur';
             $view = 'verifDelete';
             $pagetitle = 'Etes-vous sûr ?';

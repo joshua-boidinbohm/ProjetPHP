@@ -17,3 +17,16 @@ foreach ($tab_p as $v) {
 <p><a href="?action=create">Ajouter un produit</a></p>
 <h2>Liste des utilisateurs :</h2>
 <?php $tab_v = ModelUser::getAllUsers(); require 'list.php';?>
+<h2>
+    Liste des commandes :
+</h2>
+<?php
+$tab_z = ModelCommande::getAllCommandes();
+foreach ($tab_z as $v) {
+    $modhtml = htmlspecialchars($v->getIDCommande());
+    $modurl = rawurlencode($v->getIDCommande());
+    echo '<p id="article"> 
+                    ' . $modhtml . ' <a href="?action=readCom&id='.$modurl.'">(+ d\'infos)</a>
+              </p>';
+}
+?>

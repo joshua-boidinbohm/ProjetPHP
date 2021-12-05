@@ -33,9 +33,9 @@ class ModelCommande
         return $this->dateCommande;
     }
 
-    public function __construct($i = NULL, $j = NULL, $c = NULL, $m = NULL, $d = NULL) {
-        if (!is_null($i) && !is_null($j) && !is_null($c) && !is_null($m) && !is_null($d)) {
-            $this->idCommande = $i;
+    public function __construct($j = NULL, $c = NULL, $m = NULL, $d = NULL) {
+        if (!is_null($j) && !is_null($c) && !is_null($m) && !is_null($d)) {
+            $this->idCommande = NULL;
             $this->idClient = $j;
             $this->contenuCommande = $c;
             $this->montantCommande = $m;
@@ -84,10 +84,9 @@ class ModelCommande
 
     public function save(){
         try{
-            $sql = "INSERT INTO Solar__Commandes (idCommande, idClient, contenuCommande, montantCommande, dateCommande) VALUES (:nam, :firstname, :email, :passwd, :country)";
+            $sql = "INSERT INTO Solar__Commandes (idCommande, idClient, contenuCommande, montantCommande, dateCommande) VALUES (NULL, :firstname, :email, :passwd, :country)";
             $req_prep = Model::getPDO()->prepare($sql);
             $values = array(
-                "nam" => $this->idCommande,
                 "firstname" => $this->idClient,
                 "email" => $this->contenuCommande,
                 "passwd" => $this->montantCommande,

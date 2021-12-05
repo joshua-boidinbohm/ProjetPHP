@@ -54,6 +54,13 @@ class ControllerProduit{
         require File::build_path(array("view", "view.php"));
     }
 
+    public static function clearPanier(){
+        $login = $_SESSION['login'];
+        session_unset();
+        $_SESSION['login'] = $login;
+        ControllerProduit::readAll();
+    }
+
     public static function create(){
         $controller='produit';
         $view='create';

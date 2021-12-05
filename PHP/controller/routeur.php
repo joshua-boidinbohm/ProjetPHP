@@ -1,9 +1,11 @@
 <?php
 require_once File::build_path(array("controller","ControllerProduit.php"));
 require_once File::build_path(array("controller","ControllerUser.php"));
-$fct = array_merge(get_class_methods('ControllerProduit'), get_class_methods('ControllerUser'));
+require_once File::build_path(array("controller","ControllerCommande.php"));
+$fct = array_merge(get_class_methods('ControllerProduit'), get_class_methods('ControllerUser'), get_class_methods('ControllerCommande'));
 $fct1 = get_class_methods('ControllerProduit');
 $fct2 = get_class_methods('ControllerUser');
+$fct3 = get_class_methods('ControllerCommande');
 if (isset($_GET['action'])){
     $action = $_GET['action'];
 }
@@ -14,7 +16,9 @@ if (!in_array($action, $fct)){
     ControllerProduit::error();
 }
 else {
-    if (in_array($action, $fct1)) {
+    if (in_array($action, $fct3)){
+        ControllerCommande::$action();
+    } else if (in_array($action, $fct1)) {
         if (isset($_GET['quantite'])) {
             ControllerProduit::$action($_GET['mod'], $_GET['quantite']);
         } else if ($action == "delete"){
