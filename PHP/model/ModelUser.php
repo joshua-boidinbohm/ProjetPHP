@@ -196,7 +196,7 @@ Class ModelUser {
                 "country" => $this->paysUtilisateur,
                 "city" => $this->villeUtilisateur,
                 "post" => $this->cpUtilisateur,
-                "address" => $this->adresseUtilsateur,
+                "address" => $this->adresseUtilisateur,
             );
             $req_prep->execute($values);
         } catch (PDOException $e) {
