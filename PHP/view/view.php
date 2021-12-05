@@ -6,33 +6,34 @@
     <link href="src/CSS/produit.css" rel="stylesheet">
     <title><?php echo $pagetitle; ?></title>
 </head>
+
+<body>
 <header>
     <link href="src/CSS/style_header.css" rel="stylesheet">
-        <div class="small" id="header-scroll">
-            <h1 id="titreSite"><a href="#">SolarBangala</a></h1>
-            <nav>
-                <ul>
-                    <li><a href="?action=readAll">Produits</a></li>
-                    <li><a href="?action=readAllUser">Utilisateurs</a></li>
-                    <li><a id="panier" href="index.php?action=panier">Panier</a></li>
-                    <li><a id="panier" href="index.php?action=adminPage">Admin</a></li>
-                    <div id="connexion">
-                        <?php
-                        if (isset($_SESSION["login"])){
-                            echo '<a id="panier" href="index.php?action=readUser&email=' . rawurlencode($_SESSION["login"]) . '">Compte</a>';
-                        } else {
-                            echo '<a id="panier" href="index.php?action=connect">Connexion</a>';
-                        }
-                        ?>
-                        </div>
-                </ul>
+    <div class="small" id="header-scroll">
+        <h1 id="titreSite"><a href="#">SolarBangala</a></h1>
+        <nav>
+            <ul>
+                <li><a href="?action=readAll">Produits</a></li>
+                <li><a href="?action=readAllUser">Utilisateurs</a></li>
+                <li><a id="panier" href="index.php?action=panier">Panier</a></li>
+                <li><a id="panier" href="index.php?action=adminPage">Admin</a></li>
+                <div id="connexion">
+                    <?php
+                    if (isset($_SESSION["login"])){
+                        echo '<a id="panier" href="index.php?action=readUser&email=' . rawurlencode($_SESSION["login"]) . '">Compte</a>';
+                    } else {
+                        echo '<a id="panier" href="index.php?action=connect">Connexion</a>';
+                    }
+                    ?>
+                </div>
+            </ul>
 
-            </nav>
+        </nav>
 
-        </div>
-    </header>
+    </div>
 </header>
-<body>
+</header>
     <main>
         <?php
             $filepath = File::build_path(array("view", $controller, "$view.php"));
