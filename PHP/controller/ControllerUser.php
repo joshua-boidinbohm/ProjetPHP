@@ -14,8 +14,8 @@ class ControllerUser{
         require File::build_path(array("view","view.php"));
     }
 
-    public static function readUser($id){
-        if (ModelUser::getUser($id)==null){
+    public static function readUser($email){
+        if (ModelUser::getUser($email)==null){
             $controller='utilisateur';
             $view='error';
             $pagetitle='Erreur';
@@ -25,7 +25,7 @@ class ControllerUser{
             $controller='utilisateur';
             $view='detail';
             $pagetitle='Informations utilisateur';
-            $v = ModelUser::getUser($id);
+            $v = ModelUser::getUser($email);
             require File::build_path(array("view","view.php"));
         }
     }
@@ -91,5 +91,19 @@ class ControllerUser{
         $pagetitle='Liste des produits';
         $tab_v = ModelProduit::getAllProduits();
         require File::build_path(array("view","view.php"));
+    }
+
+    public static function update(){
+        $controller='utilisateur';
+        $view='update';
+        $pagetitle='Modifier';
+        $v = ModelUser::getUser($_SESSION['login']);
+        require File::build_path(array("view","view.php"));
+    }
+
+    public static function updated(){
+        $v = ModelUser::getUser($_SESSION['login']);
+        $v->update($_GET['ref'], $_POST['value']);
+        ControllerUser::readUser($_SESSION['login']);
     }
 }

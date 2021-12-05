@@ -10,7 +10,7 @@ Class ModelUser {
     private $paysUtilisateur;
     private $villeUtilisateur;
     private $cpUtilisateur;
-    private $adresseUtilsateur;
+    private $adresseUtilisateur;
     private $admin;
 
     public function getID(){
@@ -46,7 +46,7 @@ Class ModelUser {
     }
 
     public function getAdresse(){
-        return $this->adresseUtilsateur;
+        return $this->adresseUtilisateur;
     }
 
     public function getAdmin(){
@@ -82,7 +82,7 @@ Class ModelUser {
     }
 
     public function setAdresse($a){
-        $this->adresseUtilsateur = $a;
+        $this->adresseUtilisateur = $a;
     }
 
     public function __construct($n = NULL, $p = NULL, $e = NULL, $m = NULL, $c = NULL, $v = NULL, $cp = NULL, $a = NULL) {
@@ -95,7 +95,7 @@ Class ModelUser {
             $this->paysUtilisateur = $c;
             $this->villeUtilisateur = $v;
             $this->cpUtilisateur = $cp;
-            $this->adresseUtilsateur = $a;
+            $this->adresseUtilisateur = $a;
             $this->admin = '0';
         }
     }
@@ -116,14 +116,14 @@ Class ModelUser {
         }
     }
 
-    public static function getUser($id) {
+    public static function getUser($email) {
         try{
-            $sql = "SELECT * from Solar__Utilisateurs WHERE idUtilisateur=:id";
+            $sql = "SELECT * from Solar__Utilisateurs WHERE emailUtilisateur=:email";
             // Préparation de la requête
             $req_prep = Model::getPDO()->prepare($sql);
 
             $values = array(
-                "id" => $id,
+                "email" => $email,
             );
             $req_prep->execute($values);
 
@@ -231,24 +231,19 @@ Class ModelUser {
         }
     }
 
-    public static function update($data){
+    public function update($data, $value){
         try{
-            $sql = "UPDATE FROM Solar__Utilsateurs SET nomUtilisateur=:nam, prenomUtilisateur=:firstname, emailUtilisateur=:email, mdpUtilisateur=:passwd, paysUtilisateur=:country, villeUtilisateur=:city, cpUtilisateur=:post, adresseUtilisateur=:address,  WHERE idUtilisateur =:compt";
-            $req_prep = Model::getPDO()->prepare($sql);
-
-            $values = array(
-                "id" => $data['id'],
-                "nam" => $data['nom'],
-                "firstname" => $data['prenom'],
-                "email" => $data['email'],
-                "passwd" => $data['mdp'],
-                "country" => $data['pays'],
-                "city" => $data['ville'],
-                "post" => $data['cp'],
-                "address" => $data['adresse'],
-            );
-            $req_prep->execute($values);
-            $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelUser');
+            if (!$data == 'id'){
+                $colonne = $data . 'Utilisateur';
+                $sql = "UPDATE Solar__Utilisateurs SET ". $colonne. " =:valeur WHERE idUtilisateur=:idi";
+                $req_prep = Model::getPDO()->prepare($sql);
+                $values = array(
+                    "valeur" => $value,
+                    "idi" => $this->idUtilisateur,
+                );
+                $req_prep->execute($values);
+                $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelUser');
+            }
         } catch (PDOException $e) {
             if (Conf::getDebug()) {
                 echo $e->getMessage(); // affiche un message d'erreur
@@ -258,6 +253,23 @@ Class ModelUser {
             die();
         }
     }
+
+    public static function getAllEmails(){
+        try{
+            $rep = Model::getPDO()->query("SELECT emailUtilisateur FROM Solar__Utilisateurs");
+            $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelUser');
+            $tab_user = $rep->fetchAll();
+            return $tab_user;
+        } catch (PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage(); // affiche un message d'erreur
+            } else {
+                echo 'Une erreur est survenue <a href=""> Retour a la page d\'accueil </a>';
+            }
+            die();
+        }
+    }
+
 
     public static function checkPassword($login, $mot_de_passe_hache){
         try{

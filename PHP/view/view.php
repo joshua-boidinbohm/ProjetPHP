@@ -14,7 +14,6 @@
                 <ul>
                     <li><a href="?action=readAll">Produits</a></li>
                     <li><a href="?action=readAllUser">Utilisateurs</a></li>
-                    <li><a href="index.php?action=connect">Trajets</a></li>
                     <li><a id="panier" href="index.php?action=panier">Panier</a></li>
                     <li><a id="panier" href="index.php?action=adminPage">Admin</a></li>
                     <div id="connexion">
