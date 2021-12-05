@@ -41,6 +41,10 @@ class ModelProduit{
         $this->puissanceProduit = $p;
     }
 
+    public function getImage() {
+        return $this->image;
+    }
+
     public function __construct($m = NULL, $n = NULL, $p = NULL, $e = NULL, $d = NULL) {
         if (!is_null($m) && !is_null($n) && !is_null($p) && !is_null($e) && !is_null($d)) {
             $this->modelProduit = $m;
