@@ -191,11 +191,12 @@ class ControllerUser{
     public static function deletedUser(){
         $controller = 'utilisateur';
         $view = 'deletedUser';
-        if (ModelUser::isAdmin(ModelUser::getUser($_SESSION['login'])->getID())) {
+        if (ModelUser::isAdmin() && $_GET['id'] != NULL) {
             ModelUser::deleteUser($_GET['id']);
             $pagetitle = 'admin';
         } else {
             ModelUser::deleteUser(ModelUser::getUser($_SESSION['login'])->getID());
+            ControllerUser::disconnect();
             $pagetitle = 'Liste des produits';
         }
         require File::build_path(array("view", "view.php"));

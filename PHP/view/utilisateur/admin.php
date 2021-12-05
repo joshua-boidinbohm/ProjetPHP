@@ -15,8 +15,5 @@ foreach ($tab_p as $v) {
 }
 ?>
 <p><a href="?action=create">Ajouter un produit</a></p>
-<p>
-    à implémenter ! il faut que l'on puisse ajouter un produit dans la BD.
-</p>
 <h2>Liste des utilisateurs :</h2>
 <?php $tab_v = ModelUser::getAllUsers(); require 'List.php';?>

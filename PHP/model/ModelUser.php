@@ -185,23 +185,11 @@ Class ModelUser {
         }
     }
 
-    public static function isAdmin($id){
-        try{
-            $rep = Model::getPDO()->query("SELECT emailUtilisateur FROM Solar__Utilisateurs");
-            $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelUser');
-            $tab_user = $rep->fetchAll();
-            if ($tab_user[0] == 1){
-                return true;
-            } else {
-                return false;
-            }
-        } catch (PDOException $e) {
-            if (Conf::getDebug()) {
-                echo $e->getMessage(); // affiche un message d'erreur
-            } else {
-                echo 'Une erreur est survenue <a href=""> Retour a la page d\'accueil </a>';
-            }
-            die();
+    public static function isAdmin(){
+        if (isset($_SESSION['login']) && ModelUser::getUser($_SESSION['login'])->getAdmin() == '1'){
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -209,7 +197,6 @@ Class ModelUser {
         try{
             $sql = "DELETE FROM Solar__Utilisateurs WHERE idUtilisateur=:id";
             $req_prep = Model::getPDO()->prepare($sql);
-
             $values = array(
                 "id" => $id,
             );
@@ -312,6 +299,15 @@ Class ModelUser {
                 echo 'Une erreur est survenue <a href=""> Retour a la page d\'accueil </a>';
             }
             die();
+        }
+    }
+
+    public static function exist(){
+        $tab_email = ModelUser::getAllEmails();
+        if (in_array($_SESSION['login'], $tab_email)){
+            return true;
+        } else {
+            return false;
         }
     }
 }

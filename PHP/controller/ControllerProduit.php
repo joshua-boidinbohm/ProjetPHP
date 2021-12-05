@@ -26,12 +26,16 @@ class ControllerProduit{
     }
 
     public static function delete($mod){
-        ModelProduit::delete($mod);
-        $model = $mod;
-        $controller='utilisateur';
-        $view='deleted';
-        $pagetitle='admin';
-        require File::build_path(array("view","view.php"));
+        if (ModelUser::isAdmin(ModelUser::getUser($_SESSION['login'])->getID())) {
+            ModelProduit::delete($mod);
+            $model = $mod;
+            $controller = 'utilisateur';
+            $view = 'deleted';
+            $pagetitle = 'admin';
+            require File::build_path(array("view", "view.php"));
+        } else {
+            ControllerProduit::error();
+        }
     }
 
     public static function error(){

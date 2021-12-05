@@ -15,18 +15,18 @@
         <nav>
             <ul>
                 <li><a href="?action=readAll">Produits</a></li>
-                <li><a id="panier" href="index.php?action=panier">Panier</a></li>
+                <li><a id="panier" href="?action=panier">Panier</a></li>
                 <?php
-                if (ModelUser::isAdmin(ModelUser::getUser($_SESSION['login'])->getID())) {
-                    echo '<li ><a id = "panier" href = "index.php?action=adminPage" > Admin</a ></li>';
+                if (isset($_SESSION['login']) && ModelUser::isAdmin()){
+                    echo '<li><a href="?action=adminPage">Admin</a></li>';
                 }
                 ?>
                 <div id="connexion">
                     <?php
-                    if (isset($_SESSION["login"])){
-                        echo '<a id="panier" href="index.php?action=readUser&email=' . rawurlencode($_SESSION["login"]) . '">Compte</a>';
+                    if (isset($_SESSION['login'])){
+                        echo '<a id="panier" href="?action=readUser&email=' . rawurlencode($_SESSION["login"]) . '">Compte</a>';
                     } else {
-                        echo '<a id="panier" href="index.php?action=connect">Connexion</a>';
+                        echo '<a id="panier" href="?action=connect">Connexion</a>';
                     }
                     ?>
                 </div>
@@ -39,7 +39,6 @@
 </header>
     <main>
         <?php
-            var_dump(ModelUser::isAdmin(ModelUser::getUser($_SESSION['login'])->getID()));
             $filepath = File::build_path(array("view", $controller, "$view.php"));
             require $filepath;
         ?>
@@ -56,7 +55,7 @@
 
         <div class="footer" id="footer_child1">
             <div class="texte_indication">
-                Inscrivez-vous à notre newsletter pour être au courrant de toute l'actualité
+                Inscrivez-vous à notre newsletter pour être au courrant de toute l'actualité :
             </div>
             <div>
                 <form class="transparent" method="get">
@@ -79,7 +78,6 @@
                 </div>
                 <div class="logo">
                     <a href="https://twitter.com" target="_blank"><img src="src/images/Webp.net-resizeimage(3).png" alt="twitter" title="Y aller" ></a>
-
                 </div>
             </div>
         </div>
