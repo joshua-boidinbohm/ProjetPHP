@@ -48,6 +48,13 @@ class ControllerProduit{
         require File::build_path(array("view", "view.php"));
     }
 
+    public static function create(){
+        $controller='produit';
+        $view='create';
+        $pagetitle='Ajouter un produit';
+        require File::build_path(array("view", "view.php"));
+    }
+
     public static function addPanier($v, $quantite){
         if (isset($_SESSION[$v])) {
             $panier = $_SESSION[$v];

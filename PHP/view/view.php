@@ -15,9 +15,12 @@
         <nav>
             <ul>
                 <li><a href="?action=readAll">Produits</a></li>
-                <li><a href="?action=readAllUser">Utilisateurs</a></li>
                 <li><a id="panier" href="index.php?action=panier">Panier</a></li>
-                <li><a id="panier" href="index.php?action=adminPage">Admin</a></li>
+                <?php
+                if (ModelUser::isAdmin(ModelUser::getUser($_SESSION['login'])->getID())) {
+                    echo '<li ><a id = "panier" href = "index.php?action=adminPage" > Admin</a ></li>';
+                }
+                ?>
                 <div id="connexion">
                     <?php
                     if (isset($_SESSION["login"])){
@@ -36,6 +39,7 @@
 </header>
     <main>
         <?php
+            var_dump(ModelUser::isAdmin(ModelUser::getUser($_SESSION['login'])->getID()));
             $filepath = File::build_path(array("view", $controller, "$view.php"));
             require $filepath;
         ?>

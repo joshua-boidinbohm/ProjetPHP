@@ -187,16 +187,10 @@ Class ModelUser {
 
     public static function isAdmin($id){
         try{
-            $sql = "SELECT admin from Solar__Utilisateurs WHERE idUtilisateur=:idi";
-            $req_prep = Model::getPDO()->prepare($sql);
-            $values = array(
-                "idi" => $id,
-            );
-            $req_prep->execute($values);
-
-            $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelUser');
-            $tab_user = $req_prep->fetchAll();
-            if ($tab_user[0]=='1') {
+            $rep = Model::getPDO()->query("SELECT emailUtilisateur FROM Solar__Utilisateurs");
+            $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelUser');
+            $tab_user = $rep->fetchAll();
+            if ($tab_user[0] == 1){
                 return true;
             } else {
                 return false;
@@ -233,7 +227,7 @@ Class ModelUser {
 
     public function update($data, $value){
         try{
-            if (!$data == 'id'){
+            if (!$data == 'id' && !$data == 'mdp'){
                 $colonne = $data . 'Utilisateur';
                 $sql = "UPDATE Solar__Utilisateurs SET ". $colonne. " =:valeur WHERE idUtilisateur=:idi";
                 $req_prep = Model::getPDO()->prepare($sql);

@@ -10,4 +10,5 @@
     echo '<p> Code postal : ' . $v->getCP(). ' (<a href="?action=update&ref=cp">modifier</a>)</p>';
     echo '<p> Pays : ' . $v->getPays();
     echo '<p><a href="?action=disconnect">(se déconnecter)</a></p>';
+    echo '<p><a href="?action=deleteUser">Supprimer son compte</a>';
 ?>

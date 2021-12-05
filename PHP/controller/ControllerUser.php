@@ -30,6 +30,22 @@ class ControllerUser{
         }
     }
 
+    public static function readUserAdmin($email){
+        if (ModelUser::getUser($email)==null){
+            $controller='utilisateur';
+            $view='error';
+            $pagetitle='Erreur';
+            require File::build_path(array("view","view.php"));
+        }
+        else{
+            $controller='utilisateur';
+            $view='detailAdmin';
+            $pagetitle='Informations utilisateur';
+            $v = ModelUser::getUser($email);
+            require File::build_path(array("view","view.php"));
+        }
+    }
+
     public static function newslettered($email){
         ModelUser::newsletter($email);
         $tab_v = ModelProduit::getAllProduits();
@@ -102,11 +118,18 @@ class ControllerUser{
     }
 
     public static function update(){
-        $controller='utilisateur';
-        $view='update';
-        $pagetitle='Modifier';
-        $v = ModelUser::getUser($_SESSION['login']);
-        require File::build_path(array("view","view.php"));
+        if (!isset($_GET['ref']) || $_GET['ref'] == 'id' || $_GET['ref'] == 'mdp' || $_GET['ref'] == 'admin' || !isset($_SESSION['login'])){
+            $controller = 'produit';
+            $view = 'error2';
+            $pagetitle = 'Erreur';
+            require File::build_path(array("view", "view.php"));
+        } else {
+            $controller = 'utilisateur';
+            $view = 'update';
+            $pagetitle = 'Modifier';
+            $v = ModelUser::getUser($_SESSION['login']);
+            require File::build_path(array("view", "view.php"));
+        }
     }
 
     public static function updated(){
@@ -142,5 +165,39 @@ class ControllerUser{
             $pagetitle = 'Modifier le mot de passe';
             require File::build_path(array("view", "view.php"));
         }
+    }
+
+    public static function deleteUser(){
+        if (!isset($_SESSION['login'])){
+            $controller = 'produit';
+            $view = 'error2';
+            $pagetitle = 'Erreur';
+            require File::build_path(array("view", "view.php"));
+        } else if (ModelUser::isAdmin(ModelUser::getUser($_SESSION['login'])->getID())){
+            $controller = 'utilisateur';
+            $view = 'verifDelete';
+            $pagetitle = 'Etes-vous sûr ?';
+            $id = $_GET['id'];
+            require File::build_path(array("view", "view.php"));
+        } else {
+            $controller = 'utilisateur';
+            $view = 'verifDelete';
+            $pagetitle = 'Etes-vous sûr ?';
+            $id = ModelUser::getUser($_SESSION['login'])->getID();
+            require File::build_path(array("view", "view.php"));
+        }
+    }
+
+    public static function deletedUser(){
+        $controller = 'utilisateur';
+        $view = 'deletedUser';
+        if (ModelUser::isAdmin(ModelUser::getUser($_SESSION['login'])->getID())) {
+            ModelUser::deleteUser($_GET['id']);
+            $pagetitle = 'admin';
+        } else {
+            ModelUser::deleteUser(ModelUser::getUser($_SESSION['login'])->getID());
+            $pagetitle = 'Liste des produits';
+        }
+        require File::build_path(array("view", "view.php"));
     }
 }

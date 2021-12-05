@@ -5,8 +5,8 @@
     Liste des produits :
 </h2>
 <?php
-$tab_v = ModelProduit::getAllProduits();
-foreach ($tab_v as $v) {
+$tab_p = ModelProduit::getAllProduits();
+foreach ($tab_p as $v) {
     $modhtml = htmlspecialchars($v->getModele());
     $modurl = rawurlencode($v->getModele());
     echo '<p id="article"> 
@@ -14,9 +14,9 @@ foreach ($tab_v as $v) {
               </p>';
 }
 ?>
-<h2>
-    Ajouter un produit :
-</h2>
+<p><a href="?action=create">Ajouter un produit</a></p>
 <p>
     à implémenter ! il faut que l'on puisse ajouter un produit dans la BD.
 </p>
+<h2>Liste des utilisateurs :</h2>
+<?php $tab_v = ModelUser::getAllUsers(); require 'List.php';?>
