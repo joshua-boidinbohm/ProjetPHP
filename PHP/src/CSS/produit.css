@@ -12,3 +12,15 @@ form{
 input{
     margin-bottom: 25px;
 }
+
+#titreDesc{
+    text-align: left;
+    font-weight: bold;
+    margin-left: 20%;
+}
+
+#desc{
+    text-align: justify;
+    margin-right: 20%;
+    margin-left: 20%;
+}
