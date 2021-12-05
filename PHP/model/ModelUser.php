@@ -254,6 +254,26 @@ Class ModelUser {
         }
     }
 
+    public function updateMdp($value){
+        try{
+                $sql = "UPDATE Solar__Utilisateurs SET mdpUtilisateur =:valeur WHERE idUtilisateur=:idi";
+                $req_prep = Model::getPDO()->prepare($sql);
+                $values = array(
+                    "valeur" => $value,
+                    "idi" => $this->idUtilisateur,
+                );
+                $req_prep->execute($values);
+                $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelUser');
+        } catch (PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage(); // affiche un message d'erreur
+            } else {
+                echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+            }
+            die();
+        }
+    }
+
     public static function getAllEmails(){
         try{
             $rep = Model::getPDO()->query("SELECT emailUtilisateur FROM Solar__Utilisateurs");

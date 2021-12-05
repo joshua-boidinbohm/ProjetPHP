@@ -18,6 +18,10 @@
             <input type="password" name="mdp" class="mdp" required/>
         </p>
         <p>
+            <label for="mdp2">Vérification du nouveau mot de passe</label> :
+            <input type="password" name="mdp2" id="mdp2" required/>
+        </p>
+        <p>
             <label for="adresse">Votre adresse</label> :
             <input type="text" placeholder="162 allée Blaise Pascal" name="adresse" id="adresse" required/>
         </p>

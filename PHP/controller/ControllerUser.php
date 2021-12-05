@@ -47,7 +47,7 @@ class ControllerUser{
     }
 
     public static function connected($email, $mdp){
-        $mdp_hasher = Security::hacher($mdp);
+        //$mdp = Security::hacher($mdp);
         if (ModelUser::checkPassword($email, $mdp) == true){
             $_SESSION['login'] = $email;
             ControllerUser::readUser($email);
@@ -66,14 +66,22 @@ class ControllerUser{
         require File::build_path(array("view","view.php"));
     }
 
-    public static function registered($nom, $prenom, $email, $mdp, $pays, $ville, $cp, $address){
-        $user1 = new ModelUser($nom, $prenom, $email, $mdp, $pays, $ville, $cp, $address);
-        $user1->save();
-        $tab_v = ModelProduit::getAllProduits();
-        $controller='utilisateur';
-        $view='registered';
-        $pagetitle='Liste des produits';
-        require File::build_path(array("view", "view.php"));
+    public static function registered($nom, $prenom, $email, $mdp, $mdp2, $pays, $ville, $cp, $address){
+        if ($mdp == $mdp2) {
+            //$mdp = Security::hacher($mdp);
+            $user1 = new ModelUser($nom, $prenom, $email, $mdp, $pays, $ville, $cp, $address);
+            $user1->save();
+            $tab_v = ModelProduit::getAllProduits();
+            $controller = 'utilisateur';
+            $view = 'registered';
+            $pagetitle = 'Liste des produits';
+            require File::build_path(array("view", "view.php"));
+        } else {
+            $controller = 'utilisateur';
+            $view = 'errorRegister';
+            $pagetitle = 'Création de compte';
+            require File::build_path(array("view", "view.php"));
+        }
     }
 
     public static function adminPage(){
@@ -105,5 +113,34 @@ class ControllerUser{
         $v = ModelUser::getUser($_SESSION['login']);
         $v->update($_GET['ref'], $_POST['value']);
         ControllerUser::readUser($_SESSION['login']);
+    }
+
+    public static function updateMdp(){
+        $controller='utilisateur';
+        $view='updateMdp';
+        $pagetitle='Modifier le mot de passe';
+        require File::build_path(array("view","view.php"));
+    }
+
+    public static function updatedMdp(){
+        if ($_POST['newpasswd'] == $_POST['newpasswd2']){
+            //$oldpasswd = Security::hacher($_POST['oldpasswd']);
+            if (ModelUser::checkPassword($_SESSION['login'], $_POST['oldpasswd']) == true){
+                //$newpasswd = Security::hacher($_POST['newpasswd']);
+                $v = ModelUser::getUser($_SESSION['login']);
+                $v->updateMdp($_POST['newpasswd']);
+                ControllerUser::readUser($_SESSION['login']);
+            } else {
+                $controller = 'utilisateur';
+                $view = 'errorUpMdp2';
+                $pagetitle = 'Modifier le mot de passe';
+                require File::build_path(array("view", "view.php"));
+            }
+        } else {
+            $controller = 'utilisateur';
+            $view = 'errorUpMdp1';
+            $pagetitle = 'Modifier le mot de passe';
+            require File::build_path(array("view", "view.php"));
+        }
     }
 }
