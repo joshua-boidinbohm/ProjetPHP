@@ -119,11 +119,35 @@ Class ModelUser {
     public static function getUser($email) {
         try{
             $sql = "SELECT * from Solar__Utilisateurs WHERE emailUtilisateur=:email";
-            // Préparation de la requête
             $req_prep = Model::getPDO()->prepare($sql);
 
             $values = array(
                 "email" => $email,
+            );
+            $req_prep->execute($values);
+
+            $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelUser');
+            $tab_user = $req_prep->fetchAll();
+            if (empty($tab_user))
+                return false;
+            return $tab_user[0];
+        } catch (PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage(); // affiche un message d'erreur
+            } else {
+                echo 'Une erreur est survenue <a href=""> Retour a la page d\'accueil </a>';
+            }
+            die();
+        }
+    }
+
+    public static function getUserByID($id){
+        try{
+            $sql = "SELECT * from Solar__Utilisateurs WHERE idUtilisateur=:id";
+            $req_prep = Model::getPDO()->prepare($sql);
+
+            $values = array(
+                "id" => $id,
             );
             $req_prep->execute($values);
 

@@ -10,10 +10,10 @@ foreach ($tab_p as $v) {
     $modhtml = htmlspecialchars($v->getModele());
     $modurl = rawurlencode($v->getModele());
     echo '<p id="article"> 
-                    ' . $modhtml . ' <a href="?action=delete&mod=' . $modurl . '">(- supprimer)</a>
+                    ' . $modhtml . ' <a href="?action=readAdmin&mod='.$modurl.'">(+ d\'infos)</a> <a href="?action=delete&mod=' . $modurl . '">(- supprimer)</a>
               </p>';
 }
 ?>
 <p><a href="?action=create">Ajouter un produit</a></p>
 <h2>Liste des utilisateurs :</h2>
-<?php $tab_v = ModelUser::getAllUsers(); require 'List.php';?>
+<?php $tab_v = ModelUser::getAllUsers(); require 'list.php';?>

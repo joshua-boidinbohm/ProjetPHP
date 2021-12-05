@@ -1,7 +1,7 @@
 <?php
 $get = 'get' . ucwords($_GET['ref']);
 ?>
-<form class="transparent" action="?action=updated&ref=<?php echo $_GET['ref']?>" method="post">
+<form class="transparent" action="?action=updatedAdmin&ref=<?php echo $_GET['ref']?>&id=<?php echo $_GET['id']?>" method="post">
     <fieldset>
         <legend>Modification des informations :</legend>
         <br>

@@ -3,7 +3,7 @@
         $modPass = htmlspecialchars($v->getMdp());
         $modPrenom = htmlspecialchars($v->getPrenom());
         $modNom = htmlspecialchars($v->getNom());
-        $modMail = htmlspecialchars($v->getEmail());
+        $modMail = rawurlencode($v->getEmail());
         $modurl = rawurlencode($v->getID());
 
         echo '<p > 

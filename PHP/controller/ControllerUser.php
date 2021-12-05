@@ -138,6 +138,34 @@ class ControllerUser{
         ControllerUser::readUser($_SESSION['login']);
     }
 
+    public static function updateAdmin(){
+        if (!isset($_GET['ref']) || !ModelUser::isAdmin()){
+            $controller = 'produit';
+            $view = 'error2';
+            $pagetitle = 'Erreur';
+            require File::build_path(array("view", "view.php"));
+        } else {
+            $controller = 'utilisateur';
+            $view = 'updateAdmin';
+            $pagetitle = 'Modifier';
+            $v = ModelUser::getUserByID($_GET['id']);
+            require File::build_path(array("view", "view.php"));
+        }
+    }
+
+    public static function updatedAdmin(){
+        if (!ModelUser::isAdmin()){
+            $controller = 'produit';
+            $view = 'error2';
+            $pagetitle = 'Erreur';
+            require File::build_path(array("view", "view.php"));
+        } else {
+            $v = ModelUser::getUserByID($_GET['id']);
+            $v->update($_GET['ref'], $_POST['value']);
+            ControllerUser::adminPage();
+        }
+    }
+
     public static function updateMdp(){
         $controller='utilisateur';
         $view='updateMdp';
@@ -196,7 +224,8 @@ class ControllerUser{
             $pagetitle = 'admin';
         } else {
             ModelUser::deleteUser(ModelUser::getUser($_SESSION['login'])->getID());
-            ControllerUser::disconnect();
+            session_unset();
+            session_destroy();
             $pagetitle = 'Liste des produits';
         }
         require File::build_path(array("view", "view.php"));
