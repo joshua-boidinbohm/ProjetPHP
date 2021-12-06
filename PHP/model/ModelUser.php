@@ -6,6 +6,7 @@ Class ModelUser {
     private $nomUtilisateur;
     private $prenomUtilisateur;
     private $emailUtilisateur;
+    private $nonce;
     private $mdpUtilisateur;
     private $paysUtilisateur;
     private $villeUtilisateur;
@@ -27,6 +28,10 @@ Class ModelUser {
 
     public function getEmail(){
         return $this->emailUtilisateur;
+    }
+
+    public function getNonce(){
+        return $this->nonce;
     }
 
     public function getMdp(){
@@ -85,12 +90,13 @@ Class ModelUser {
         $this->adresseUtilisateur = $a;
     }
 
-    public function __construct($n = NULL, $p = NULL, $e = NULL, $m = NULL, $c = NULL, $v = NULL, $cp = NULL, $a = NULL) {
-        if (!is_null($n) && !is_null($p) && !is_null($e) && !is_null($m) && !is_null($c) && !is_null($v) && !is_null($cp) && !is_null($a)) {
+    public function __construct($n = NULL, $p = NULL, $e = NULL, $o = NULL, $m = NULL, $c = NULL, $v = NULL, $cp = NULL, $a = NULL) {
+        if (!is_null($n) && !is_null($p) && !is_null($e) && !is_null($o) && !is_null($m) && !is_null($c) && !is_null($v) && !is_null($cp) && !is_null($a)) {
             $this->idUtilisateur = NULL;
             $this->nomUtilisateur = $n;
             $this->prenomUtilisateur = $p;
             $this->emailUtilisateur = $e;
+            $this->nonce = $o;
             $this->mdpUtilisateur = $m;
             $this->paysUtilisateur = $c;
             $this->villeUtilisateur = $v;
@@ -186,12 +192,13 @@ Class ModelUser {
 
     public function save(){
         try{
-            $sql = "INSERT INTO Solar__Utilisateurs (idUtilisateur, nomUtilisateur, prenomUtilisateur, emailUtilisateur, mdpUtilisateur, paysUtilisateur, villeUtilisateur, cpUtilisateur, adresseUtilisateur, admin) VALUES (NULL, :nam, :firstname, :email, :passwd, :country, :city, :post, :address, '0')";
+            $sql = "INSERT INTO Solar__Utilisateurs (idUtilisateur, nomUtilisateur, prenomUtilisateur, emailUtilisateur, nonce, mdpUtilisateur, paysUtilisateur, villeUtilisateur, cpUtilisateur, adresseUtilisateur, admin) VALUES (NULL, :nam, :firstname, :email, :nonc, :passwd, :country, :city, :post, :address, '0')";
             $req_prep = Model::getPDO()->prepare($sql);
             $values = array(
                 "nam" => $this->nomUtilisateur,
                 "firstname" => $this->prenomUtilisateur,
                 "email" => $this->emailUtilisateur,
+                "nonc" =>$this->nonce,
                 "passwd" => $this->mdpUtilisateur,
                 "country" => $this->paysUtilisateur,
                 "city" => $this->villeUtilisateur,
@@ -261,14 +268,14 @@ Class ModelUser {
 
     public function updateMdp($value){
         try{
-                $sql = "UPDATE Solar__Utilisateurs SET mdpUtilisateur =:valeur WHERE idUtilisateur=:idi";
-                $req_prep = Model::getPDO()->prepare($sql);
-                $values = array(
-                    "valeur" => $value,
-                    "idi" => $this->idUtilisateur,
-                );
-                $req_prep->execute($values);
-                $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelUser');
+            $sql = "UPDATE Solar__Utilisateurs SET mdpUtilisateur =:valeur WHERE idUtilisateur=:idi";
+            $req_prep = Model::getPDO()->prepare($sql);
+            $values = array(
+                "valeur" => $value,
+                "idi" => $this->idUtilisateur,
+            );
+            $req_prep->execute($values);
+            $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelUser');
         } catch (PDOException $e) {
             if (Conf::getDebug()) {
                 echo $e->getMessage(); // affiche un message d'erreur
@@ -332,6 +339,25 @@ Class ModelUser {
             return true;
         } else {
             return false;
+        }
+    }
+
+    public function updateNonce(){
+        try{
+            $sql = "UPDATE Solar__Utilisateurs SET nonce =NULL WHERE idUtilisateur=:idi";
+            $req_prep = Model::getPDO()->prepare($sql);
+            $values = array(
+                "idi" => $this->idUtilisateur,
+            );
+            $req_prep->execute($values);
+            $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelUser');
+        } catch (PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage(); // affiche un message d'erreur
+            } else {
+                echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+            }
+            die();
         }
     }
 }

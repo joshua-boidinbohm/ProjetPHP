@@ -4,8 +4,6 @@ require_once File::build_path(array("model", "ModelProduit.php"));
 require_once File::build_path(array("lib", "Security.php"));
 class ControllerUser{
 
-
-
     public static function readAllUser(){
         $controller='utilisateur';
         $view='list';
@@ -64,7 +62,7 @@ class ControllerUser{
 
     public static function connected($email, $mdp){
         $mdp = Security::hacher($mdp);
-        if (ModelUser::checkPassword($email, $mdp) == true){
+        if (ModelUser::checkPassword($email, $mdp) == true && ModelUser::getUser($email)->getNonce()==NULL){
             $_SESSION['login'] = $email;
             ControllerUser::readUser($email);
         } else {
@@ -83,10 +81,13 @@ class ControllerUser{
     }
 
     public static function registered($nom, $prenom, $email, $mdp, $mdp2, $pays, $ville, $cp, $address){
-        if ($mdp == $mdp2) {
+        if ($mdp == $mdp2 && !in_array($email, ModelUser::getAllEmails()) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $mdp = Security::hacher($mdp);
-            $user1 = new ModelUser($nom, $prenom, $email, $mdp, $pays, $ville, $cp, $address);
+            $nonce = Security::generateRandomHex();
+            $user1 = new ModelUser($nom, $prenom, $email, $nonce, $mdp, $pays, $ville, $cp, $address);
             $user1->save();
+            $mail = '<p>Bienvenue sur SolarBangala, leader du marché des panneaux solaires dernière génération.</p><br> <p>Pour valider votre adresse email et ainsi profiter pleinement de notre site, cliquez <a href="http://localhost/ProjetPHP/PHP/?action=validate&login='.rawurlencode($user1->getEmail()).'&nonce='.$nonce.'"a>ici</a>';
+            mail($email, 'Bienvenue chez SolarBangala', $mail);
             $tab_v = ModelProduit::getAllProduits();
             $controller = 'utilisateur';
             $view = 'registered';
@@ -98,6 +99,15 @@ class ControllerUser{
             $pagetitle = 'Création de compte';
             require File::build_path(array("view", "view.php"));
         }
+    }
+
+    public static function validate($email, $nonce){
+        $nonc = ModelUser::getUser($email)->getNonce();
+        if (ModelUser::getUser($email)!=false && $nonce == $nonc){
+            $u = ModelUser::getUser($email);
+            $u->updateNonce();
+        }
+        ControllerProduit::readAll();
     }
 
     public static function adminPage(){

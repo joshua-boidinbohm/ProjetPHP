@@ -28,9 +28,10 @@ else {
         } else {
             ControllerProduit::$action();
         }
-    }
-    else {
-        if (isset($_POST['cp'])){
+    } else {
+        if (isset($_GET['nonce'])){
+            ControllerUser::validate($_GET['login'], $_GET['nonce']);
+        } else if (isset($_POST['cp'])){
             ControllerUser::registered($_POST['nom'], $_POST['prenom'], $_POST['email'], $_POST['mdp'], $_POST['mdp2'], 'France', $_POST['ville'], $_POST['cp'], $_POST['adresse']);
         } else if (isset($_POST['mdp'])){
             ControllerUser::connected($_POST['email'], $_POST['mdp']);
