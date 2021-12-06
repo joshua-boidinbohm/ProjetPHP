@@ -1,6 +1,5 @@
 <?php
     foreach ($tab_v as $v) {
-        $modPass = htmlspecialchars($v->getMdp());
         $modPrenom = htmlspecialchars($v->getPrenom());
         $modNom = htmlspecialchars($v->getNom());
         $modMail = rawurlencode($v->getEmail());

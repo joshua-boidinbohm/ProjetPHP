@@ -81,17 +81,32 @@ class ControllerUser{
     }
 
     public static function registered($nom, $prenom, $email, $mdp, $mdp2, $pays, $ville, $cp, $address){
-        if ($mdp == $mdp2 && !in_array($email, ModelUser::getAllEmails()) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if ($mdp == $mdp2 && ModelUser::getUser($email)==false && filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $mdp = Security::hacher($mdp);
             $nonce = Security::generateRandomHex();
             $user1 = new ModelUser($nom, $prenom, $email, $nonce, $mdp, $pays, $ville, $cp, $address);
             $user1->save();
-            $mail = '<p>Bienvenue sur SolarBangala, leader du marché des panneaux solaires dernière génération.</p><br> <p>Pour valider votre adresse email et ainsi profiter pleinement de notre site, cliquez <a href="http://localhost/ProjetPHP/PHP/?action=validate&login='.rawurlencode($user1->getEmail()).'&nonce='.$nonce.'"a>ici</a>';
-            mail($email, 'Bienvenue chez SolarBangala', $mail);
+            $headers = "MIME-Version: 1.0\r\n";
+            $headers .= "Content-type: text/html; charset=utf-8\r\n";
+            $mail = '
+            <html>
+           
+            <body>
+            
+            <p>Bienvenue sur SolarBangala, leader du marché des panneaux solaires dernière génération. Pour valider votre adresse email, 
+            <br><a href="https://webinfo.iutmontp.univ-montp2.fr/~ferrandizj/PHP/ProjetPHP/PHP/?action=validate&login='.rawurlencode($user1->getEmail()).'&nonce='.$nonce.'"a>cliquez ici</a></p>
+            
+            Merci de l\'intérêt que vous portez à notre marque, <br>
+            
+            SolarBangala.
+            
+            </body>
+            </html>';
+            mail($email, 'Bienvenue chez SolarBangala', $mail, $headers);
             $tab_v = ModelProduit::getAllProduits();
             $controller = 'utilisateur';
             $view = 'registered';
-            $pagetitle = 'Liste des produits';
+            $pagetitle = 'Connexion';
             require File::build_path(array("view", "view.php"));
         } else {
             $controller = 'utilisateur';
