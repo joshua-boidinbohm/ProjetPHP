@@ -1,7 +1,7 @@
 <?php
 require_once File::build_path(array("model","ModelCommande.php"));
 require_once File::build_path(array("model","ModelProduit.php"));
-require_once File::build_path(array("Controller", "ControllerProduit.php"));
+require_once File::build_path(array("controller", "ControllerProduit.php"));
 require_once File::build_path(array("model","ModelUser.php"));
 class ControllerCommande
 {
@@ -48,6 +48,22 @@ class ControllerCommande
         } else {
             ControllerUser::connect();
         }
+    }
+
+    public static function seeCommand(){
+        $u = $_GET['id'];
+        $controller='utilisateur';
+        $view='seeCommand';
+        $pagetitle='Liste des commandes';
+        require File::build_path(array("view","view.php"));
+    }
+
+    public static function deleteCom(){
+        ModelCommande::delete($_GET['id']);
+        $controller='utilisateur';
+        $view='admin';
+        $pagetitle='admin';
+        require File::build_path(array("view","view.php"));
     }
 }
 ?>

@@ -10,4 +10,5 @@ foreach ($tab_u as $key=>$value) {
 }
 echo '<p> Montant de la commande : ' . $v->getMontant() . '€';
 echo '<p> Date de la commande : ' . $v->getDate();
+echo '<a href="?action=deleteCom&id=' . $mod . '">(- supprimer)</a>';
 ?>

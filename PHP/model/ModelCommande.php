@@ -61,7 +61,7 @@ class ModelCommande
 
     public static function getCommande($id) {
         try{
-            $sql = "SELECT * from Solar__Commandes WHERE idCommande=:id";
+            $sql = "SELECT * from Solar__Commandes WHERE idClient=:id";
             $req_prep = Model::getPDO()->prepare($sql);
             $values = array(
                 "id" => $id,
@@ -96,6 +96,49 @@ class ModelCommande
         } catch (PDOException $e) {
             if (Conf::getDebug()) {
                 echo $e->getMessage(); // affiche un message d'erreur
+            } else {
+                echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+            }
+            die();
+        }
+    }
+
+    public static function getAllCommandByUser($id){
+        try{
+            $sql = "SELECT * from Solar__Commandes WHERE idClient=:id";
+            $req_prep = Model::getPDO()->prepare($sql);
+
+            $values = array(
+                "id" => $id,
+            );
+            $req_prep->execute($values);
+
+            $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelUser');
+            $tab_user = $req_prep->fetchAll();
+            if (empty($tab_user))
+                return false;
+            return $tab_user;
+        } catch (PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage(); // affiche un message d'erreur
+            } else {
+                echo 'Une erreur est survenue <a href=""> Retour a la page d\'accueil </a>';
+            }
+            die();
+        }
+    }
+
+    public static function delete($mod){
+        try {
+            $sql = "DELETE FROM Solar__Commandes WHERE idCommande =:modele";
+            $req_prep = Model::getPDO()->prepare($sql);
+            $values = array(
+                "modele" => $mod,
+            );
+            $req_prep->execute($values);
+        } catch (PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
             } else {
                 echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
             }
