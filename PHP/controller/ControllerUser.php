@@ -126,10 +126,17 @@ class ControllerUser{
     }
 
     public static function adminPage(){
-        $controller='utilisateur';
-        $view='admin';
-        $pagetitle='admin';
-        require File::build_path(array("view","view.php"));
+        if (ModelUser::isAdmin()) {
+            $controller = 'utilisateur';
+            $view = 'admin';
+            $pagetitle = 'admin';
+            require File::build_path(array("view", "view.php"));
+        } else {
+            $controller='produit';
+            $view='error';
+            $pagetitle='Erreur';
+            require File::build_path(array("view","view.php"));
+        }
     }
 
     public static function disconnect(){
