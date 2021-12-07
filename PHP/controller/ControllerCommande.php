@@ -1,6 +1,7 @@
 <?php
 require_once File::build_path(array("model","ModelCommande.php"));
 require_once File::build_path(array("model","ModelProduit.php"));
+require_once File::build_path(array("Controller", "ControllerProduit.php"));
 require_once File::build_path(array("model","ModelUser.php"));
 class ControllerCommande
 {
@@ -24,9 +25,9 @@ class ControllerCommande
     public static function command()
     {
         if (isset($_SESSION['login'])){
-            $tab_prod = ModelProduit::getAllProduits();
-            for ($i = 0; $i < count($tab_prod); $i++) {
-                $tab_noms[$i] = $tab_prod[$i]->getModele();
+            $tab_v = ModelProduit::getAllProduits();
+            for ($i = 0; $i < count($tab_v); $i++) {
+                $tab_noms[$i] = $tab_v[$i]->getModele();
             }
             $total = 0;
             $i = 0;
@@ -43,6 +44,7 @@ class ControllerCommande
             $date = date('Y-m-d h:i:s a');
             $commande = new ModelCommande($idClient, $tab_com, $total, $date);
             $commande->save();
+            ControllerProduit::readAll();
         } else {
             ControllerUser::connect();
         }
